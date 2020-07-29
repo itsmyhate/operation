@@ -127,7 +127,7 @@
     width: 100%!important;
 }
 .root-main {
-    height: calc(100vh - 90px);
+    height: calc(100vh - 110px);
     overflow-y: auto;
     background-color: white;
 }

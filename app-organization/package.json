@@ -18,7 +18,14 @@
     "bootstrap": "^4.5.0",
     "dev-platform": "^0.1.2",
     "jquery": "^3.5.1",
-    "popper.js": "^1.16.1"
+    "popper.js": "^1.16.1",
+    "echarts": "^4.7.0",
+    "vue-echarts": "^5.0.0-beta.0",
+    "mockjs": "^1.1.0",
+    "vue-axios": "^2.1.5",
+    "axios": "^0.19.2",
+    "vue-rx": "^6.2.0",
+    "rxjs": "^6.5.5"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.4.0",

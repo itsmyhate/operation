@@ -1,5 +1,5 @@
 import ApiService from "@/services/restful-api/api.service";
-import authorizationApi from "@/constants/api/authorization.api";
+import authorizationApi from "@/constants/api/dictionary.api";
 import {AxiosRequestConfig} from "axios";
 import Vue from "vue";
 const AuthService = {

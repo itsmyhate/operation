@@ -11,8 +11,11 @@ import {GlobalState} from "@/entity/model/GlobalState";
 import RouteTopologyService from "@/services/route-topology.service";
 import {SET_ALIVE_ROUTE} from "@/store/route-keep-alive.module";
 import ApiService from "@/services/restful-api/api.service";
+import MockService from "@/mock/mock.service";
 
+Vue.prototype.$COMMON = COMMON;
 Vue.config.productionTip = false;
+
 let vue: Vue;
 Vue.use(API);
 
@@ -22,12 +25,12 @@ async function initApp(props?: any) {
     Vue.prototype.$COMMON = constants.COMMON;
     render();
   } else {
-    Vue.prototype.$COMMON = COMMON;
     render()
   }
 }
 function render() {
-  ApiService.init()
+  ApiService.init();
+  MockService.init();
   RouteTopologyService.checkAndInit();
   /*
   * 设置路由
@@ -57,26 +60,24 @@ export async function mount(props: any) {
   vue.$COMMON.globalStateService.on(vue.$COMMON.AppNameEnum.organization, (state: GlobalState, preState: GlobalState) => {
     console.log('organization观察者：', state.action);
   });
-  let gs = new GlobalState({});
-  gs.action = vue.$COMMON.ActionsKeyEnum.getHisRoute;
-  gs.payload = vue.$COMMON.AppNameEnum.organization;
-  gs.callBack = (url) => {
-    console.log('organization...mount setAppRouteAction.......', url);
-    if(!!url) {
-      vue.$router.push({path: url});
+
+  vue.$COMMON.globalStateService.dispatch(vue.$COMMON.AppNameEnum.root, new GlobalState({
+    action: vue.$COMMON.ActionsKeyEnum.getHisRoute, payload: vue.$COMMON.AppNameEnum.organization, callBack: (url) => {
+      console.log('organization...mount setAppRouteAction.......', url);
+      if(!!url) {
+        vue.$router.push({path: url});
+      }
     }
-  }
-  vue.$COMMON.globalStateService.dispatch(vue.$COMMON.AppNameEnum.root, gs);
+  }));
 }
 export async function unmount(props: any) {
   const path = vue.$route.path;
-  let gs = new GlobalState({});
-  gs.action = vue.$COMMON.ActionsKeyEnum.setHisRoute;
-  gs.payload = {[vue.$COMMON.AppNameEnum.organization]: path};
-  gs.callBack = () => {
-    console.log('organization...unmount setAppRouteAction.......', path);
-  }
-  vue.$COMMON.globalStateService.dispatch(vue.$COMMON.AppNameEnum.root, gs);
+  vue.$COMMON.globalStateService.dispatch(vue.$COMMON.AppNameEnum.root, new GlobalState({
+    action: vue.$COMMON.ActionsKeyEnum.setHisRoute, payload: {[vue.$COMMON.AppNameEnum.organization]: path},
+    callBack: () => {
+      console.log('organization...unmount setAppRouteAction.......', path);
+    }
+  }));
   destoryRouter();
   destoryStore();
   vue.$destroy();
