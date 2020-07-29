@@ -2,7 +2,7 @@
     <Row class="w-100 d-flex justify-content-between align-items-center" type="flex" justify="center" >
         <div class="d-flex justify-content-start align-items-center w-25">
             <Icon class="ivu-fs-large" type="logo-codepen"  :size="30" />
-            <h5 class="ml-2 text-nowrap">综合运营平台{{isRoot ? '' : appText}}</h5>
+            <span class="ml-2 text-nowrap ivu-fs-20">综合运营平台{{isRoot ? '' : appText}}</span>
         </div>
         <div class="h-100 w-50" style="text-align: -webkit-center">
             <!--<iMenu v-if="isRoot" @on-select="menuClick" class="h-100 w-25" :mode="'horizontal'">
