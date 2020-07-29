@@ -20,7 +20,6 @@
   import SubApp from "@/components/SubApp.vue";
   import {GET_ALIVE_ROUTE} from "@/store/route-keep-alive.module";
   import Vue from 'vue';
-  import {checkLogin} from "@/services/auth.service";
   export default Vue.extend({
     name: 'App',
     components: {SubApp, SubAppHeader},
@@ -31,7 +30,7 @@
       }
     },
     created() {
-      this.isLogin = checkLogin();
+      this.isLogin = this.$COMMON.AuthService.checkLogin();
       this.aliveRoutes = this.$store.getters[GET_ALIVE_ROUTE]();
       const isLogin = IsLoginService.login$.subscribe((value: boolean) => {
         this.isLogin = value;

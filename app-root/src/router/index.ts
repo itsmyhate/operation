@@ -1,8 +1,8 @@
 import VueRouter, {RawLocation, RouteConfig} from 'vue-router';
+import Vue from "vue";
 import loginRouting from "@/router/login/login.routing";
 import workbenchRouting from "@/router/workbench/workbench.routing";
 import subAppRouting from "@/router/workbench/sub-app.routing";
-import {checkLogin} from "@/services/auth.service";
 
 export const routes: RouteConfig[] = [
     {
@@ -28,7 +28,7 @@ const router = new VueRouter({
   routes,
 });
 router.beforeEach((to, from, next) => {
-    if (to.path.indexOf('login') > -1 || checkLogin()) {
+    if (to.path.indexOf('login') > -1 || Vue.prototype.$COMMON.AuthService.checkLogin()) {
         next();
     } else {
         next('/login');

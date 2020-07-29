@@ -10,24 +10,24 @@ import API from 'app-component';
 import {GlobalState} from "@/entity/model/GlobalState";
 import RouteTopologyService from "@/services/route-topology.service";
 import {SET_ALIVE_ROUTE} from "@/store/route-keep-alive.module";
+import ApiService from "@/services/restful-api/api.service";
 
 Vue.config.productionTip = false;
 let vue: Vue;
 Vue.use(API);
 
 async function initApp(props?: any) {
-  /*if(process.env.NODE_ENV === 'development') {
+  if(process.env.NODE_ENV === 'development') {
     const constants = await import('../../app-constants/src/index');
     Vue.prototype.$COMMON = constants.COMMON;
     render();
   } else {
     Vue.prototype.$COMMON = COMMON;
     render()
-  }*/
-  Vue.prototype.$COMMON = COMMON;
-  render()
+  }
 }
 function render() {
+  ApiService.init()
   RouteTopologyService.checkAndInit();
   /*
   * 设置路由

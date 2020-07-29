@@ -64,7 +64,7 @@
     import Vue from 'vue';
     import {SubAppService} from "@/services/notice/sub-app.service";
     import {IsLoginService} from "@/services/notice/is-login.service";
-    import { getMenusInfo, getUserInfo, logout } from '@/services/auth.service';
+    import { getMenusInfo} from '@/services/menus.service';
 
     export default Vue.extend({
         name: "SubAppHeader",
@@ -88,7 +88,7 @@
         },
         created() {
             this.data = getMenusInfo() || [];
-            this.userInfo = getUserInfo() || {};
+            this.userInfo = this.$COMMON.AuthService.getUserInfo() || {};
             this.listenAppName();
             this.listenOnLoad();
         },
@@ -107,7 +107,7 @@
             dropdownClick(name: string) {
                 if(name === this.dropdown.logout) {
                     IsLoginService.update(false);
-                    logout(); // 清楚缓存信息
+                    this.$COMMON.AuthService.logout(); // 清楚缓存信息
                     this.appName = undefined;
                     location.reload();
                     // this.$router.push({path: '/login'});

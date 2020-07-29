@@ -1,7 +1,7 @@
 import {GlobalState} from "@/entity/model/GlobalState";
 import {store} from "@/store";
 import {GET_APP_HISROUTE, SET_APP_HISROUTE_ACTION} from "@/store/app-his-route.module";
-import {checkToken, getMenusInfo, getToken, getUserInfo, updateToken} from "@/services/auth.service";
+import {getMenusInfo} from "@/services/menus.service";
 
 export const globalStateListenerService = {
     init(COMMON: any): void {
@@ -20,23 +20,6 @@ export const globalStateListenerService = {
                 // payload=微应用名称， 获取菜单信息
                 const menus = getMenusInfo(state.payload);
                 if(state.callBack) state.callBack(menus);
-            } else if(action === COMMON.ActionsKeyEnum.getUserInfo) {
-                // 用户信息获取
-                const user = getUserInfo();
-                if(state.callBack) state.callBack(user);
-            } else if(action === COMMON.ActionsKeyEnum.getToken) {
-                // token获取
-                const token = getToken();
-                if(state.callBack) state.callBack(token);
-            } else if(action === COMMON.ActionsKeyEnum.checkToken) {
-                // token校验有效
-                if(state.callBack) state.callBack(checkToken());
-            } else if(action === COMMON.ActionsKeyEnum.updateToken) {
-                // payload=XXXXXXXXX ，token刷新
-                if(state.payload) {
-                    const token = updateToken(state.payload);
-                    if(state.callBack) state.callBack(token);
-                }
             }
         })
     }

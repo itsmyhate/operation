@@ -15,7 +15,7 @@
     import Vue from 'vue';
     import {SubAppService} from "@/services/notice/sub-app.service";
     import {GET_APP_HISROUTE} from "@/store/app-his-route.module";
-    import { getMenusInfo } from '@/services/auth.service';
+    import { getMenusInfo } from '@/services/menus.service';
     import {SysAppInfo} from "@/entity/domain/SysAppInfo";
 
     export default Vue.extend({

@@ -5,14 +5,13 @@ import {EnableTypeEnum} from "@/constants/enums/enable-type.enum";
 import {MethodTypeEnum} from "@/constants/enums/method-type.enum";
 import {HeaderTypeEnum} from "@/constants/enums/header-type.enum";
 import AuthService from "./auth.service";
-import {getToken, logout} from "@/services/auth.service";
 
 interface Query {
     [key: string]: any;
 }
-
 const ApiService = {
     init() {
+        const auth = Vue.prototype.$COMMON.AuthService;
         Vue.use(VueAxios, axios);
         if (process.env.VUE_APP_ENABLE_MOCK != EnableTypeEnum.YES.code) {
             Vue.axios.defaults.baseURL = process.env.VUE_APP_BASE_URL;
@@ -29,10 +28,10 @@ const ApiService = {
                 } else {
                     return AuthService.refreshToken().then(response => {
                         if (response) {
-                            config.headers.Authorization = "bearer" + getToken().accessToken;
+                            config.headers.Authorization = "bearer" + auth.getToken().accessToken;
                             return config;
                         } else {
-                            logout();
+                            auth.logout();
                             return Promise.reject("刷新失败");
                         }
                     });

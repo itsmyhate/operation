@@ -20,7 +20,7 @@
     import authorizationApi from "@/constants/api/authorization.api";
     import AuthService from "@/services/restful-api/auth.service";
     import { ResponseTypeEnum } from '@/constants/enums/response-type.enum';
-    import { login, setMenusInfo } from '@/services/auth.service';
+    import {  setMenusInfo } from '@/services/menus.service';
 
     export default Vue.extend({
         name: "Login",
@@ -49,7 +49,7 @@
                     password: 'password'
                 }, {}, AuthService.createBasicHeaders()).then((response: any) => {
                     if(response.code === ResponseTypeEnum.success) {
-                        login(response.data.user, response.data.token);
+                        this.$COMMON.AuthService.login(response.data.user, response.data.token);
                         setMenusInfo(response.data.menus, response.data.rootMenus);
                         IsLoginService.update(true);
                         startQiankun(this.$COMMON, response.data.menus);

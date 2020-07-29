@@ -1,7 +1,6 @@
 import ApiService from "@/services/restful-api/api.service";
 import authorizationApi from "@/constants/api/authorization.api";
 import {AxiosRequestConfig} from "axios";
-import {checkToken, getToken, updateToken} from "@/services/auth.service";
 
 const AuthService = {
     createBasicHeaders(): any {
@@ -13,7 +12,7 @@ const AuthService = {
         };
     },
     createAuthHeaders(): any {
-        const token = getToken().accessToken;
+        const token = this.$COMMON.AuthService.getToken().accessToken;
         return {
             headers: {
                 Authorization: "bearer " + token,
@@ -23,7 +22,7 @@ const AuthService = {
         };
     },
     createFileDownloadAuthorizationHeader() {
-        const token = getToken().accessToken;
+        const token = this.$COMMON.AuthService.getToken().accessToken;
         return {
             headers: {
                 "Content-Type": "application/json",
@@ -43,20 +42,20 @@ const AuthService = {
     },
     refreshToken(): Promise<any> {
         const params = this.jsonToFormData({
-          refresh_token: getToken().refreshToken,
+          refresh_token: this.$COMMON.AuthService.getToken().refreshToken,
         });
         const headers = this.createBasicHeaders();
         return ApiService.general(authorizationApi.refreshToken, {}, params, headers).then((response: any) => {
           if (response != null && response.access_token != null) {
-              updateToken(response.access_token);
-              return true;
+              const res = this.$COMMON.AuthService.updateToken(response.access_token);
+              return res;
           }
           return false;
         });
     },
     verificationToken(config: AxiosRequestConfig) {
         if (config.headers && config.headers.Authorization) {
-            return checkToken();
+            return this.$COMMON.AuthService.checkToken();
         }
         return true;
     },

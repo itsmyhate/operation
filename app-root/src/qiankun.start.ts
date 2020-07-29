@@ -1,12 +1,12 @@
 import {initGlobalState, registerMicroApps, runAfterFirstMounted, setDefaultMountApp, start} from 'qiankun';
-import {checkLogin} from "@/services/auth.service";
 import {globalStateListenerService} from "@/services/global-state-listener.service";
 import {SysAppInfo} from "@/entity/domain/SysAppInfo";
+import Vue from 'vue';
 
 const lifecycle: any = {
     beforeLoad: [
         (app: any) => {
-            if(!checkLogin()) {
+            if(!Vue.prototype.$COMMON.AuthService.checkLogin()) {
                 console.warn(`${app.name}未登录，重定向-->auth`)
                 history.replaceState(null, "login", "/login");
             }

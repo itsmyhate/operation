@@ -25,7 +25,7 @@
     import LeftMenu from "@/components/LeftMenu.vue";
     import RouteTopologyService from "@/services/route-topology.service";
     import {GET_ALIVE_ROUTE} from "@/store/route-keep-alive.module";
-    import { getRootMenusInfo } from '@/services/auth.service';
+    import { getRootMenusInfo } from '@/services/menus.service';
     export default Vue.extend({
         name: "Main",
         components: {LeftMenu},

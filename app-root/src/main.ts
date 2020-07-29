@@ -16,13 +16,12 @@ import ApiService from "@/services/restful-api/api.service";
 import MockService from "@/mock/mock.service";
 import RouteTopologyService from "@/services/route-topology.service";
 import {SET_ALIVE_ROUTE} from "../../app-organization/src/store/route-keep-alive.module";
-import {getMenusInfo} from "@/services/auth.service";
+import {getMenusInfo} from "@/services/menus.service";
 
+Vue.prototype.$COMMON = COMMON;
 Vue.config.productionTip = false;
 
 
-ApiService.init();
-MockService.init();
 
 Vue.use(VueRouter);
 Vue.use(API, {
@@ -30,14 +29,11 @@ Vue.use(API, {
   size: 'large',
 });
 if(process.env.NODE_ENV === 'development') {
-  /*import('../../app-constants/src/index').then(constants => {
+  import('../../app-constants/src/index').then(constants => {
     Vue.prototype.$COMMON = constants.COMMON;
     initRoot();
-  });*/
-  Vue.prototype.$COMMON = COMMON;
-  initRoot();
+  });
 } else {
-  Vue.prototype.$COMMON = COMMON;
   initRoot();
 }
 
@@ -45,6 +41,9 @@ if(process.env.NODE_ENV === 'development') {
 * 启动
 * */
 function initRoot() {
+
+  ApiService.init();
+  MockService.init();
   RouteTopologyService.checkAndInit();
   /*
   * 设置路由快照
