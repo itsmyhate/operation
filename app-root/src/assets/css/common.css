@@ -135,3 +135,7 @@
 .root-cursor-pointer {
     cursor: pointer;
 }
+.root-flex-1 {
+    flex: 1;
+    -webkit-flex: 1;
+}

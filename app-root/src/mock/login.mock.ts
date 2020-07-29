@@ -26,6 +26,7 @@ const menus: SysAppInfo[] = [
     new SysAppInfo({appId: 'ORGANIZATION', appName: '系统管理', appIcon: '',appUrl: '//localhost:4202/index.html', activeRule: '/organization',
         appType: '', appState: '', appDesc: '系统管理微应用，包含组织结构管理、角色权限管理、菜单交易管理等',
         menus: [
+            new SysMenuInfo({menuId: 'app', menuName: '应用管理', menuIcon: '', menuUrl: '/main/app',}),
             new SysMenuInfo({menuId: 'orgs', menuName: '系统管理', menuIcon: '', menuUrl: '/main',
                 children: [
                     /*
@@ -56,10 +57,9 @@ const menus: SysAppInfo[] = [
                     new SysMenuInfo({menuId: 'param', menuName: '系统参数', menuIcon: '', menuUrl: '/main/param',}),
                     new SysMenuInfo({menuId: 'holiday', menuName: '节假日管理', menuIcon: '', menuUrl: '/main/holiday',}),
                 ]}),
-            new SysMenuInfo({menuId: 'app', menuName: '应用管理', menuIcon: '', menuUrl: '/main/app',}),
             new SysMenuInfo({menuId: 'base', menuName: '基础信息', menuIcon: '', menuUrl: '/main',
                 children: [
-                    new SysMenuInfo({menuId: 'menu', menuName: '菜单管理', menuIcon: '',  menuUrl: '/main/menu',}),
+                    new SysMenuInfo({menuId: 'menu', menuName: '菜单管理', menuIcon: '',  menuUrl: '/main/menu-config',}),
                     new SysMenuInfo({menuId: 'trade', menuName: '交易管理', menuIcon: '', menuUrl: '/main/trade',}),
                     new SysMenuInfo({menuId: 'interface', menuName: '接口管理', menuIcon: '', menuUrl: '/main/interface',}),
                 ]}),

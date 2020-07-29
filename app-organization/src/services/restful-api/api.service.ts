@@ -5,6 +5,7 @@ import {EnableTypeEnum} from "@/constants/enums/enable-type.enum";
 import {MethodTypeEnum} from "@/constants/enums/method-type.enum";
 import {HeaderTypeEnum} from "@/constants/enums/header-type.enum";
 import AuthService from "../auth.service";
+import {RestfulResponse} from "@/entity/model/RestfulResponse";
 
 interface Query {
     [key: string]: any;
@@ -43,35 +44,36 @@ const ApiService = {
             }
         );
     },
-    get(path: string, query: Query, requestConfig: AxiosRequestConfig): any {
+    get(path: string, query: Query, requestConfig: AxiosRequestConfig): Promise<RestfulResponse> {
         path = query != null ? this.urlQueryConvert(path, query) : path;
+        console.log(path, requestConfig);
         return Vue.axios
             .get(`${path}`, requestConfig)
             .then(this.createBusCodeHander())
             .catch(this.createErrorHander());
     },
-    post(path: string, params: any, query: Query, requestConfig: AxiosRequestConfig): any {
+    post(path: string, params: any, query: Query, requestConfig: AxiosRequestConfig): Promise<RestfulResponse>  {
         path = query != null ? this.urlQueryConvert(path, query) : path;
         return Vue.axios
             .post(`${path}`, params, requestConfig)
             .then(this.createBusCodeHander())
             .catch(this.createErrorHander());
     },
-    put(path: string, params: any, query: Query, requestConfig: AxiosRequestConfig): any {
+    put(path: string, params: any, query: Query, requestConfig: AxiosRequestConfig): Promise<RestfulResponse>  {
         path = query != null ? this.urlQueryConvert(path, query) : path;
         return Vue.axios
             .put(`${path}`, params, requestConfig)
             .then(this.createBusCodeHander())
             .catch(this.createErrorHander());
     },
-    delete(path: string, query: Query, requestConfig: AxiosRequestConfig): any {
+    delete(path: string, query: Query, requestConfig: AxiosRequestConfig): Promise<RestfulResponse>  {
         path = query != null ? this.urlQueryConvert(path, query) : path;
         return Vue.axios
             .delete(path, requestConfig)
             .then(this.createBusCodeHander())
             .catch(this.createErrorHander());
     },
-    general(api: any, query: Query = {}, params: any = null, requestConfig?: AxiosRequestConfig | any) {
+    general(api: any, query: Query = {}, params: any = null, requestConfig?: AxiosRequestConfig | any): any  {
         if (!!api.url && !!api.method) {
             if (requestConfig == null) {
                 switch (api.header) {

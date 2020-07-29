@@ -49,6 +49,7 @@
         },
         created() {
             this.aliveRoutes = this.$store.getters[GET_ALIVE_ROUTE]('Main');
+            console.log(this.aliveRoutes);
             this.$COMMON.globalStateService.dispatch( this.$COMMON.AppNameEnum.root,
                 new GlobalState({
                     action: this.$COMMON.ActionsKeyEnum.getMenuInfo,

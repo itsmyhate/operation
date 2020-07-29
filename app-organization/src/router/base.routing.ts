@@ -1,8 +1,8 @@
 export const baseRouting = [
     {
-        path: 'menu',
-        name: 'Menu',
-        component: () => import(/* webpackChunkName: Base */ '@/views/base/Menu.vue'),
+        path: 'menu-config',
+        name: 'MenuConfig',
+        component: () => import(/* webpackChunkName: Base */ '@/views/base/MenuConfig.vue'),
         meta: { keepAlive: true },
     },{
         path: 'trade',

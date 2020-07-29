@@ -1,14 +1,21 @@
 <template>
-  <div id="organization" class="root-container">
-    <router-view/>
-  </div>
+  <a-locale-provider :locale="locale">
+    <div id="organization" class="root-container">
+      <router-view/>
+    </div>
+  </a-locale-provider>
 </template>
 <script lang="ts">
   import Vue from 'vue';
+  import zhCN from 'ant-design-vue/lib/locale-provider/zh_CN';
+  import LocaleProvider from "ant-design-vue";
+  Vue.use(LocaleProvider);
   export default Vue.extend({
     name: "App",
     data() {
-      return { }
+      return {
+        locale: zhCN,
+      }
     },
     created() { },
     methods: { }
