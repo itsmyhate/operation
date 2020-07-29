@@ -83,7 +83,7 @@
         },
         computed: {
             appText () {
-                return  ' | '.concat('this.appName');
+                return  ' | '.concat(this.appName);
             }
         },
         created() {
