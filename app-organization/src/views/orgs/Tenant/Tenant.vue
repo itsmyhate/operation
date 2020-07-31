@@ -71,7 +71,7 @@
     import Vue from 'vue';
     import {Menu, Table, Divider, Select, Button} from "ant-design-vue";
     import TenantShowComponent from "@/components/Tenant/TenantShowComponent.vue";
-    import {drawEcharts} from "@/constants/component/Tenant/tenant-echarts";
+    import {drawEchart, drawEcharts, drawLineChart} from "@/constants/component/Tenant/tenant-echarts";
 
     Vue.use(Menu);
     Vue.use(Table);
@@ -311,11 +311,11 @@
             },
         },
         mounted() {
-            //drawEchart(this.productInfo, 'ec1');
-            //drawEchart(this.platformInfo, 'ec2');
-            //drawLineChart(this.userTimeInfo, 'ec3');
+            drawEchart(this.productInfo, 'ec1');
+            drawEchart(this.platformInfo, 'ec2');
+            drawLineChart(this.userTimeInfo, 'ec3');
             // drawEcharts(this.productInfo, 'ec1', 'ec2', 'ec3');
-            drawEcharts(this.echartData, 'ec1', 'ec2', 'ec3');
+            // drawEcharts(this.echartData, 'ec1', 'ec2', 'ec3');
         },
 
     })
