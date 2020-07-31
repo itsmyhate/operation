@@ -1,13 +1,13 @@
 /* module */
-export const ROUTE_TOPOLOGY = "routeTopology";
+export const ROUTE_TOPOLOGY = 'routeTopology';
 /* state */
-export const INITED = "inited";
-export const TREE_ROUTES = "treeRoutes";
-export const HORIZONTAL_ROUTES = "horizontalRoutes";
+export const INITED = 'inited';
+export const TREE_ROUTES = 'treeRoutes';
+export const HORIZONTAL_ROUTES = 'horizontalRoutes';
 /* mutation */
-export const SET_INITED = "setInited";
-export const SET_TREE_ROUTES = "setTreeRoutes";
-export const SET_HORIZONTAL_ROUTES = "setHorizontalRoutes";
+export const SET_INITED = 'setInited';
+export const SET_TREE_ROUTES = 'setTreeRoutes';
+export const SET_HORIZONTAL_ROUTES = 'setHorizontalRoutes';
 /* actions */
 
 

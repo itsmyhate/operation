@@ -4,25 +4,25 @@
 </template>
 
 <script lang="ts">
-    import Vue from 'vue';
-    export default Vue.extend({
-        name: "SubApp",
-        props: {
-        },
-        data() {
-            return {
-                menu: null,
-                subApp: null,
-            }
-        },
-        created() {
-            console.log('subApp init........');
-        },
-        mounted() {
-        },
-        methods: {
-        }
-    })
+import Vue from 'vue';
+export default Vue.extend({
+    name: 'SubApp',
+    props: {
+    },
+    data() {
+        return {
+            menu: null,
+            subApp: null,
+        };
+    },
+    created() {
+        console.log('subApp init........');
+    },
+    mounted() {
+    },
+    methods: {
+    }
+});
 </script>
 
 <style scoped>

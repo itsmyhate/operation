@@ -39,7 +39,8 @@
     "less": "^3.0.4",
     "less-loader": "^5.0.0",
     "node-sass": "^4.14.1",
-    "sass-loader": "^9.0.2",
+    "sass-loader": "^8.0.1",
+    "sass-resources-loader": "^2.0.3",
     "typescript": "~3.9.3",
     "vue-template-compiler": "^2.6.11"
   }

@@ -13,17 +13,17 @@
 </template>
 
 <script lang="ts">
-    import Vue from 'vue';
-    export default Vue.extend({
-        name: "Main",
-        data() {
-            return {}
-        },
-        created() {
-        },
-        methods: {
-        }
-    });
+import Vue from 'vue';
+export default Vue.extend({
+    name: 'Main',
+    data() {
+        return {};
+    },
+    created() {
+    },
+    methods: {
+    }
+});
 </script>
 
 <style scoped>

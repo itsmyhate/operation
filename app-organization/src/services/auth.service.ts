@@ -2,8 +2,9 @@ import ApiService from "@/services/restful-api/api.service";
 import authorizationApi from "@/constants/api/authorization.api";
 import {AxiosRequestConfig} from "axios";
 import Vue from "vue";
+import {RestfulResponse} from "@/entity/model/RestfulResponse";
 const AuthService = {
-    createBasicHeaders(): any {
+    createBasicHeaders(): AxiosRequestConfig {
         return {
             headers: {
                 "Content-Type": "application/json",
@@ -11,7 +12,7 @@ const AuthService = {
             }
         };
     },
-    createAuthHeaders(): any {
+    createAuthHeaders(): AxiosRequestConfig {
         const token = Vue.prototype.$COMMON.AuthService.getToken().accessToken;
         return {
             headers: {
@@ -21,7 +22,7 @@ const AuthService = {
             }
         };
     },
-    createFileDownloadAuthorizationHeader() {
+    createFileDownloadAuthorizationHeader(): AxiosRequestConfig {
         const token = Vue.prototype.$COMMON.AuthService.getToken().accessToken;
         return {
             headers: {
@@ -40,7 +41,7 @@ const AuthService = {
             return formData;
         }
     },
-    refreshToken(): Promise<any> {
+    refreshToken(): Promise<RestfulResponse> {
         const params = this.jsonToFormData({
           refresh_token: Vue.prototype.$COMMON.AuthService.getToken().refreshToken,
         });

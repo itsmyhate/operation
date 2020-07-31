@@ -1,35 +1,35 @@
-import {SysMenuInfo} from "@/entity/domain/SysMenuInfo";
+import {SysMenuInfo} from '@/entity/domain/SysMenuInfo';
 
 export class SysAppInfo {
-    appId: string;
-    appUrl: string;
-    appType: string;
-    appName: string;
-    appIcon: string;
-    activeRule: string;
-    appDesc: string;
-    appState?: string;
-    menus?: SysMenuInfo[];
+    public appId: string;
+    public appUrl: string;
+    public appActiveRule: string;
+    public appType: string;
+    public appName: string;
+    public appIcon: string;
+    public appDesc: string;
+    public appState?: string;
+    public menuList?: SysMenuInfo[];
 
     constructor(options: {
         appId: string,
         appUrl: string,
+        appActiveRule: string,
         appType: string,
         appIcon: string,
         appName: string,
-        activeRule: string,
         appDesc?: string,
         appState?: string,
-        menus?: SysMenuInfo[],
+        menuList?: SysMenuInfo[],
     }) {
         this.appId = options.appId || '',
         this.appUrl = options.appUrl || '',
+        this.appActiveRule = options.appActiveRule || '',
         this.appType = options.appType || '',
         this.appIcon = options.appIcon || '',
         this.appName = options.appName || '',
         this.appDesc = options.appDesc || '',
-        this.activeRule = options.activeRule || '',
         this.appState = options.appState || '',
-        this.menus = options.menus || []
+        this.menuList = options.menuList || [];
     }
 }

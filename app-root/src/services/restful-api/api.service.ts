@@ -1,10 +1,11 @@
-import Vue from "vue";
-import axios, {AxiosRequestConfig} from "axios";
-import VueAxios from "vue-axios";
-import {EnableTypeEnum} from "@/constants/enums/enable-type.enum";
-import {MethodTypeEnum} from "@/constants/enums/method-type.enum";
-import {HeaderTypeEnum} from "@/constants/enums/header-type.enum";
-import AuthService from "./auth.service";
+import {EnableTypeEnum} from '@/constants/enums/enable-type.enum';
+import {HeaderTypeEnum} from '@/constants/enums/header-type.enum';
+import {MethodTypeEnum} from '@/constants/enums/method-type.enum';
+import {RestfulResponse} from '@/entity/model/RestfulResponse';
+import axios, {AxiosRequestConfig} from 'axios';
+import Vue from 'vue';
+import VueAxios from 'vue-axios';
+import AuthService from './auth.service';
 
 interface Query {
     [key: string]: any;
@@ -17,63 +18,63 @@ const ApiService = {
             Vue.axios.defaults.baseURL = process.env.VUE_APP_BASE_URL;
         }
         const headers = AuthService.createBasicHeaders();
-        Object.keys(headers).forEach(function (key) {
+        Object.keys(headers).forEach(function(key) {
             Vue.axios.defaults.headers.common[key] = headers[key];
         });
 
         Vue.axios.interceptors.request.use(
-            function (config) {
+            function(config) {
                 if (AuthService.verificationToken(config)) {
                     return Promise.resolve(config);
                 } else {
-                    return AuthService.refreshToken().then(response => {
+                    return AuthService.refreshToken().then((response) => {
                         if (response) {
-                            config.headers.Authorization = "bearer" + auth.getToken().accessToken;
+                            config.headers.Authorization = 'bearer' + auth.getToken().accessToken;
                             return config;
                         } else {
                             auth.logout();
-                            return Promise.reject("刷新失败");
+                            return Promise.reject('刷新失败');
                         }
                     });
                 }
             },
-            function (error) {
-                console.log("Do something with request error");
+            function(error) {
+                console.log('Do something with request error');
                 return Promise.reject(error);
             }
         );
     },
-    get(path: string, query: Query, requestConfig: AxiosRequestConfig): any {
+    get(path: string, query: Query, requestConfig: AxiosRequestConfig): Promise<RestfulResponse> {
         path = query != null ? this.urlQueryConvert(path, query) : path;
         return Vue.axios
             .get(`${path}`, requestConfig)
             .then(this.createBusCodeHander())
             .catch(this.createErrorHander());
     },
-    post(path: string, params: any, query: Query, requestConfig: AxiosRequestConfig): any {
+    post(path: string, params: any, query: Query, requestConfig: AxiosRequestConfig): Promise<RestfulResponse>  {
         path = query != null ? this.urlQueryConvert(path, query) : path;
         return Vue.axios
             .post(`${path}`, params, requestConfig)
             .then(this.createBusCodeHander())
             .catch(this.createErrorHander());
     },
-    put(path: string, params: any, query: Query, requestConfig: AxiosRequestConfig): any {
+    put(path: string, params: any, query: Query, requestConfig: AxiosRequestConfig): Promise<RestfulResponse>  {
         path = query != null ? this.urlQueryConvert(path, query) : path;
         return Vue.axios
             .put(`${path}`, params, requestConfig)
             .then(this.createBusCodeHander())
             .catch(this.createErrorHander());
     },
-    delete(path: string, query: Query, requestConfig: AxiosRequestConfig): any {
+    delete(path: string, query: Query, requestConfig: AxiosRequestConfig): Promise<RestfulResponse>  {
         path = query != null ? this.urlQueryConvert(path, query) : path;
         return Vue.axios
             .delete(path, requestConfig)
             .then(this.createBusCodeHander())
             .catch(this.createErrorHander());
     },
-    general(api: any, query: Query = {}, params: any = null, requestConfig?: AxiosRequestConfig | any) {
+    general(api: any, query: Query = {}, params: any = null, requestConfig?: AxiosRequestConfig): Promise<RestfulResponse> {
         if (!!api.url && !!api.method) {
-            if (requestConfig == null) {
+            if (!requestConfig) {
                 switch (api.header) {
                     case HeaderTypeEnum.BASE.code:
                         requestConfig = AuthService.createBasicHeaders();
@@ -83,6 +84,7 @@ const ApiService = {
                         break;
                 }
             }
+            requestConfig = requestConfig || {};
             switch (api.method) {
                 case MethodTypeEnum.GET.code:
                     return this.get(api.url, query, requestConfig);
@@ -96,11 +98,18 @@ const ApiService = {
                 case MethodTypeEnum.DELETE.code:
                     return this.delete(api.url, query, requestConfig);
                     break;
+                default:
+                    return new Promise<RestfulResponse>((resolve, reject) => {
+                        resolve()   , reject();
+                    });
             }
         }
+        return new Promise<RestfulResponse>((resolve, reject) => {
+            resolve(),  reject();
+        });
     },
     createBusCodeHander() {
-        return function (response: any) {
+        return function(response: any) {
             if (response.status === 200) {
                 return response.data;
             }
@@ -108,7 +117,7 @@ const ApiService = {
         };
     },
     createErrorHander() {
-        return function (error: any) {
+        return function(error: any) {
             if (error.response) {
                 // The request was made and the server responded with a status code
                 // that falls out of the range of 2xx
@@ -116,47 +125,47 @@ const ApiService = {
                 console.log(error.response.status);
                 console.log(error.response.headers);
                 return {
-                    code: "1000",
-                    msg: "响应异常，稍后请重试或联系管理员"
+                    code: '1000',
+                    msg: '响应异常，稍后请重试或联系管理员'
                 };
             } else if (error.request) {
                 console.log(error.request);
                 return {
-                    code: "1000",
-                    msg: "请求异常，稍后请重试或联系管理员"
+                    code: '1000',
+                    msg: '请求异常，稍后请重试或联系管理员'
                 };
             } else {
                 // Something happened in setting up the request that triggered an Error
-                console.log("Error", error.message);
+                console.log('Error', error.message);
                 return {
-                    code: "1000",
-                    msg: "未知异常，稍后请重试或联系管理员"
+                    code: '1000',
+                    msg: '未知异常，稍后请重试或联系管理员'
                 };
             }
             console.log(error.config);
         };
     },
     urlQueryConvert(url: string, query: Query) {
-        let connectiveSymbol = "";
-        if (url.indexOf("?") !== -1) {
-            connectiveSymbol = "&";
+        let connectiveSymbol = '';
+        if (url.indexOf('?') !== -1) {
+            connectiveSymbol = '&';
         } else {
-            connectiveSymbol = "?";
+            connectiveSymbol = '?';
         }
         if (query) {
             Object.keys(query).forEach((key, idx) => {
                 const val = query[key];
                 if (idx === 0) {
-                    if (val != null && val !== "null" && val !== "undefined") {
-                        url += connectiveSymbol + key + "=" + val;
+                    if (val != null && val !== 'null' && val !== 'undefined') {
+                        url += connectiveSymbol + key + '=' + val;
                     } else {
-                        url += connectiveSymbol + key + "=";
+                        url += connectiveSymbol + key + '=';
                     }
                 } else {
-                    if (val != null && val !== "null" && val !== "undefined") {
-                        url += "&" + key + "=" + val;
+                    if (val != null && val !== 'null' && val !== 'undefined') {
+                        url += '&' + key + '=' + val;
                     } else {
-                        url += "&" + key + "=";
+                        url += '&' + key + '=';
                     }
                 }
             });

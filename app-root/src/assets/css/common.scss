@@ -114,28 +114,33 @@
 ::scrollbar-dark-shadow-color{}
 ::scrollbar-base-color{}
 ::scrollbar-track-color{}
-.root-container {
-    height: calc(100vh - 60px);
-    overflow: hidden;
-}
-.root-left-menu {
-    background-color: white;
-    overflow-y: auto;
-}
-.root-content {
-    overflow: hidden;
-    width: 100%!important;
-}
-.root-main {
-    height: calc(100vh - 110px);
-    overflow-y: auto;
-    background-color: white;
+
+$prefix: 'root-';
+.#{$prefix} {
+    &container {
+        height: calc(100vh - 60px);
+        overflow: hidden;
+    }
+    &left-menu {
+        background-color: white;
+        overflow-y: auto;
+    }
+    &content {
+        overflow: hidden;
+        width: 100%!important;
+    }
+    &main {
+        height: calc(100vh - 110px);
+        overflow-y: auto;
+        background-color: white;
+    }
+
+    &cursor-pointer {
+        cursor: pointer;
+    }
+    &flex-1 {
+        flex: 1;
+        -webkit-flex: 1;
+    }
 }
 
-.root-cursor-pointer {
-    cursor: pointer;
-}
-.root-flex-1 {
-    flex: 1;
-    -webkit-flex: 1;
-}

@@ -1,14 +1,14 @@
+import {SysAppInfo} from '@/entity/domain/SysAppInfo';
+import {globalStateListenerService} from '@/services/global-state-listener.service';
 import {initGlobalState, registerMicroApps, runAfterFirstMounted, setDefaultMountApp, start} from 'qiankun';
-import {globalStateListenerService} from "@/services/global-state-listener.service";
-import {SysAppInfo} from "@/entity/domain/SysAppInfo";
 import Vue from 'vue';
 
 const lifecycle: any = {
     beforeLoad: [
         (app: any) => {
-            if(!Vue.prototype.$COMMON.AuthService.checkLogin()) {
-                console.warn(`${app.name}未登录，重定向-->auth`)
-                history.replaceState(null, "login", "/login");
+            if (!Vue.prototype.$COMMON.AuthService.checkLogin()) {
+                console.warn(`${app.name}未登录，重定向-->auth`);
+                history.replaceState(null, 'login', '/login');
             }
             console.log('[LifeCycle] before load %c%s', 'color: green;', app.name);
         },
@@ -28,28 +28,28 @@ function activeRule(path: string) {
     return (location: any) => {
         const res = location.pathname.startsWith(`${path}`);
         return res;
-    }
+    };
 }
 function dealMenuInfo(subApps: SysAppInfo[]) {
-    const subApps_ = subApps.map(val => {
+    const subApps_ = subApps.map((val) => {
         return {
             name: val.appId,
             entry: val.appUrl,
             container: `#subApp`,  // `#${val.name}App`,
-            activeRule: activeRule(val.activeRule),
-        }
+            activeRule: activeRule(val.appActiveRule),
+        };
     });
     return subApps_;
-};
-export function startQiankun(COMMON: any, apps : SysAppInfo[], path?: string) {
-    if(!apps || !apps.length) {
+}
+export function startQiankun(COMMON: any, apps: SysAppInfo[], path?: string) {
+    if (!apps || !apps.length) {
         return;
     }
     const subApps = dealMenuInfo(apps);
     /*
     * 注册微应用
     * */
-    registerMicroApps(subApps,lifecycle);
+    registerMicroApps(subApps, lifecycle);
     /*
     * 全局状态
     * */
@@ -58,11 +58,11 @@ export function startQiankun(COMMON: any, apps : SysAppInfo[], path?: string) {
     /*
     * 注册root观察者
     * */
-    globalStateListenerService.init(COMMON)
+    globalStateListenerService.init(COMMON);
     // actions.setGlobalState({app: "auth", path: "/auth"});
     // actions.offGlobalStateChange();
 
-    if(!!path) {
+    if (!!path) {
         setDefaultMountApp(path);
     }
     start({

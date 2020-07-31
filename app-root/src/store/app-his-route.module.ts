@@ -19,8 +19,8 @@ export const appHisRoute = {
         },
     },
     actions: {
-        [SET_APP_HISROUTE_ACTION]: (injectee:any, payload: any) => {
+        [SET_APP_HISROUTE_ACTION]: (injectee: any, payload: any) => {
             injectee.commit(SET_APP_HISROUTE, payload);
         }
     },
-}
+};

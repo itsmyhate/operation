@@ -13,54 +13,75 @@
 </template>
 
 <script lang="ts">
-    import Vue from 'vue';
-    import {startQiankun} from "@/qiankun.start";
-    import {IsLoginService} from "@/services/notice/is-login.service";
-    import ApiService from "@/services/restful-api/api.service";
-    import authorizationApi from "@/constants/api/authorization.api";
-    import AuthService from "@/services/restful-api/auth.service";
-    import { ResponseTypeEnum } from '@/constants/enums/response-type.enum';
-    import {  setMenusInfo } from '@/services/menus.service';
+import authorizationApi from '@/constants/api/core/authorization.api';
+import {EnableTypeEnum} from '@/constants/enums/enable-type.enum';
+import {SysMenuInfo} from '@/entity/domain/SysMenuInfo';
+import { RestfulResponse } from '@/entity/model/RestfulResponse';
+import {startQiankun} from '@/qiankun.start';
+import {  setMenusInfo } from '@/services/menus.service';
+import {IsLoginService} from '@/services/notice/is-login.service';
+import ApiService from '@/services/restful-api/api.service';
+import AuthService from '@/services/restful-api/auth.service';
+import Vue from 'vue';
 
-    export default Vue.extend({
-        name: "Login",
-        data(): any {
-            return {
-                form: {},
-            }
-        },
-        created() {
-        },
-        methods: {
-            handleSubmit(e: any) {
-                e.preventDefault();
-                this.form.validateFields((err: any, values: any) => {
-                    if (err) {
-                        console.log('valid faile:', values);
-                    } else {
-                        this.login();
-                    }
-                });
+export default Vue.extend({
+    name: 'Login',
+    data(): any {
+        return {
+            form: {},
+        };
+    },
+    created() {
+    },
+    methods: {
+        handleSubmit(e: any) {
+            e.preventDefault();
+            this.form.validateFields((err: any, values: any) => {
+                if (err) {
+                    console.log('valid faile:', values);
+                } else {
+                    this.login();
+                }
+            });
 
-            },
-            login() {
-                ApiService.post(authorizationApi.login.url ,{
+        },
+        login() {
+            const data = {
+                user: {
                     username: 'username',
-                    password: 'password'
-                }, {}, AuthService.createBasicHeaders()).then((response: any) => {
-                    if(response.code === ResponseTypeEnum.success) {
-                        this.$COMMON.AuthService.login(response.data.user, response.data.token);
-                        setMenusInfo(response.data.menus, response.data.rootMenus);
-                        IsLoginService.update(true);
-                        startQiankun(this.$COMMON, response.data.menus);
-                        this.$router.push({path: '/root/app-collect'});
-                    } else {
-                        this.$Message.error(response.msg);
-                    }
-                });
-            }
-        },
-    })
+                    deptId: 'XXX部门',
+                },
+                token: {
+                    refreshToken: 'refreshToken',
+                    accessToken: 'token',
+                    expiresIn: 100000,
+                    time: new Date().getTime(),
+                },
+                rootMenus: [
+                    new SysMenuInfo({menuId: 'workbench', menuName: '工作台', menuIcon: '', menuUrl: '/root/workbench'}),
+                    new SysMenuInfo({menuId: 'app-collect', menuName: '应用管理', menuIcon: '', menuUrl: '/root/app-collect', }),
+                ],
+            };
+            this.$COMMON.AuthService.login(data.user, data.token);
+            setMenusInfo([], data.rootMenus);
+            IsLoginService.update(true);
+            this.$router.push({path: '/root/app-collect'});
+            /*ApiService.post(authorizationApi.login.url ,{
+                username: 'username',
+                password: 'password'
+            }, {}, AuthService.createBasicHeaders()).then((response: RestfulResponse) => {
+                if(response.code === EnableTypeEnum.YES.code) {
+                    this.$COMMON.AuthService.login(response.data.user, response.data.token);
+                    setMenusInfo([], response.data.rootMenus);
+                    IsLoginService.update(true);
+                    this.$router.push({path: '/root/app-collect'});
+                } else {
+                    this.$Message.error(response.msg);
+                }
+            });*/
+        }
+    },
+});
 </script>
 
 <style scoped>

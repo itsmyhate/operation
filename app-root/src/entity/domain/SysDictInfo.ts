@@ -1,7 +1,7 @@
 export class SysDictInfo {
-    code: string;
-    name: string;
-    text: string;
+    public code: string;
+    public name: string;
+    public text: string;
     constructor(options: {
         code: string,
         name: string,
@@ -9,6 +9,6 @@ export class SysDictInfo {
     }) {
         this.code = options.code || '',
         this.name = options.name || '',
-        this.text = options.text || ''
+        this.text = options.text || '';
     }
 }
