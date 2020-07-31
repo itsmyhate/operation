@@ -38,8 +38,8 @@ export function destoryRouter() {
   router = null;
 }
 
-const originalPush = VueRouter.prototype.push
+const originalPush = VueRouter.prototype.push;
 VueRouter.prototype.push = function push(location: RawLocation) {
   // @ts-ignore
-  return originalPush.call(this, location).catch(err => {console.log(err)})
-}
+  return originalPush.call(this, location).catch(err => {console.log(err);});
+};

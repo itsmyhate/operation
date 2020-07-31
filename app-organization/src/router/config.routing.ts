@@ -5,4 +5,4 @@ export const configRouting = [
         component: () => import(/* webpackChunkName: Config */ '@/views/config/Dict.vue'),
         meta: { keepAlive: true },
     },
-]
+];

@@ -7,9 +7,14 @@ export const membersRouting = [
     }, {
         path: 'tenants',
         name: 'Tenant',
-        component: () => import(/* webpackChunkName: Members */ '@/views/orgs/Tenant.vue'),
+        component: () => import(/* webpackChunkName: Members */ '@/views/orgs/Tenant/Tenant.vue'),
         meta: { keepAlive: true },
     }, {
+        path: 'tenantsauthorization',
+        name: 'TenantsAuthorization',
+        component: () => import(/* webpackChunkName: Members */  '@/views/orgs/Tenant/TenantsAuthorization.vue'),
+        meta: { keepAlive: true },
+    },{
         path: 'post',
         name: 'Post',
         component: () => import(/* webpackChunkName: Members */ '@/views/orgs/Post.vue'),
