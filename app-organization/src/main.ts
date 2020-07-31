@@ -7,7 +7,7 @@ import 'popper.js';
 import './public-path';
 import {COMMON} from 'app-constants-js';
 import '@/assets/css/bootstrap.min.css';
-import 'ant-design-vue/dist/antd.css'
+import 'ant-design-vue/dist/antd.css';
 import API from 'app-component';
 import {GlobalState} from "@/entity/model/GlobalState";
 import RouteTopologyService from "@/services/route-topology.service";
@@ -27,7 +27,7 @@ async function initApp(props?: any) {
     Vue.prototype.$COMMON = constants.COMMON;
     render();
   } else {
-    render()
+    render();
   }
 }
 function render() {

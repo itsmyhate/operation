@@ -25,6 +25,6 @@ export class SysMenuInfo {
             this.menuBgImg = options.menuBgImg || '',
             this.menuBgColor = options.menuBgColor || '',
             this.menuLevel = options.menuLevel || 0,
-            this.children = options.children || []
+            this.children = options.children || [];
     }
 }

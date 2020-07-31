@@ -30,7 +30,7 @@ const routeKeepAlive = {
 function getRouteKeepAlive(routesName: string, aliveRoute: any, routes: any[]) {
     routes.forEach(value => {
         if(value.meta && value.meta.keepAlive) {
-            if(!aliveRoute[routesName]) aliveRoute[routesName] = [];
+            if(!aliveRoute[routesName]) { aliveRoute[routesName] = []; }
             aliveRoute[routesName].push(value.name);
         }
         if(value.children && !!value.children.length) {

@@ -33,7 +33,11 @@ const menus: SysAppInfo[] = [
                     * 租户维护
                     * 租户应用配置
                     * */
-                    new SysMenuInfo({menuId: 'tenants', menuName: '租户管理', menuIcon: '', menuUrl: '/main/tenants',}),
+                    new SysMenuInfo({menuId: 'tenants', menuName: '租户管理', menuIcon: '', menuUrl: '/main/tenants',
+                        children: [
+                            new SysMenuInfo({menuId:'tenantsoverview', menuName:'租户概览', menuIcon: '', menuUrl: '/main/tenants/tenantsoverview'})
+                        ]
+                    }),
                     /*
                     * 公司/组织部门/人员维护
                     * 人员所属部门/岗位/角色配置

@@ -1,4 +1,4 @@
-export class GlobalState{
+export class GlobalState {
     action: string;
     payload: any;
     callBack: ((...args: any[]) => void) | null;
@@ -9,7 +9,7 @@ export class GlobalState{
     }) {
         this.action = options.action || '',
             this.payload = options.payload || {},
-            this.callBack = options.callBack || null
+            this.callBack = options.callBack || null;
     }
 }
 
