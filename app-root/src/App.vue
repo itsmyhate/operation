@@ -62,7 +62,7 @@ export default Vue.extend({
   // renderError: undefined
 });
 </script>
-<style lang="less">
+<style lang="scss">
   #root {
     font-family: Avenir, Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;

@@ -2,7 +2,7 @@
     <div class="d-flex">
         <Row class="w-100 ml-2 mr-2">
             <iCol span="6" v-for="item in data">
-                <Card class="m-3 app-card-df" :title="item.appName">
+                <Card class="m-3 root-card-df" :title="item.appName">
                     <iButton @click="goSubApp(item)" type="dashed" size="small">Go to </iButton>
                     <span class="ml-2">{{item.appDesc}}</span>
                 </Card>
@@ -54,9 +54,11 @@ export default Vue.extend({
     }
 });
 </script>
-<style scoped>
-    .app-card-df {
-        min-height: 150px;
-        max-height: 150px;
+<style scoped lang="scss">
+    .#{$prefix} {
+        &card-df {
+            min-height: 150px;
+            max-height: 150px;
+        }
     }
 </style>

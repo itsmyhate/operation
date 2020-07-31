@@ -1,7 +1,7 @@
 <template>
     <a-row :gutter="48">
         <a-col v-for="num in 10" :span="7" class="d-flex flex-column ml-5">
-            <div class="d-flex flex-row box-df"
+            <div class="d-flex flex-row org-box-df"
                  style="height: 240px;border: 1px solid #D1E3FF;border-radius: 15px;margin: 10px;">
                 <div class="mt-4" style="font-size: 16px;text-align: left;width: 100%;height: 30px">
                     <span style="margin-left: 15%">xx信托</span>
@@ -45,15 +45,18 @@
     })
 </script>
 
-<style scoped>
-    .box-df {
+<style scoped lang="scss">
+    .#{$prefix} {
+        &box-df {
 
+        }
+
+        &box-df:hover {
+            box-sizing: border-box;
+            -moz-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.349019607843137);
+            -webkit-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.349019607843137);
+            box-shadow: 0px 0px 8px rgba(0, 191, 255, 0.349019607843137);
+        }
     }
 
-    .box-df:hover {
-        box-sizing: border-box;
-        -moz-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.349019607843137);
-        -webkit-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.349019607843137);
-        box-shadow: 0px 0px 8px rgba(0, 191, 255, 0.349019607843137);
-    }
 </style>

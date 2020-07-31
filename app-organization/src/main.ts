@@ -9,7 +9,7 @@ import {COMMON} from 'app-constants-js';
 
 import '@/assets/css/bootstrap.min.css';
 import 'ant-design-vue/dist/antd.css'
-import '@/assets/css/common.css'
+import '@/assets/css/common.scss'
 
 import API from 'app-component';
 import {GlobalState} from "@/entity/model/GlobalState";

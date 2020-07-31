@@ -21,7 +21,7 @@
     methods: { }
   })
 </script>
-<style lang="less">
+<style lang="scss">
 #organization {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

@@ -24,7 +24,7 @@
                 更多
                 <Icon type="ios-arrow-down"></Icon>
             </div>
-            <Icon v-if="!isRoot" class="mr-2 home-icon-df " @click="goBack()" type="md-home" />
+            <Icon v-if="!isRoot" class="mr-2 root-home-icon-df " @click="goBack()" type="md-home" />
             <div v-else class="mr-3 user-select-none">
                 {{userInfo.deptId}}
             </div>
@@ -39,7 +39,7 @@
             </Dropdown>
         </div>
         <transition :name="'move-up'">
-            <div class="collapse-df" v-show="isCollapse">
+            <div class="root-collapse-df" v-show="isCollapse">
                 <Row class="w-100" type="flex" justify="center" >
                     <!-- not more than 6 -->
                     <template v-for="app in data">
@@ -137,19 +137,21 @@ export default Vue.extend({
     }
 });
 </script>
-<style scoped>
-    .collapse-df{
-        position: absolute;
-        top: 64px;
-        z-index: 9999;
-        width: 100%;
-        background-color: white;
-    }
-    .home-icon-df {
-        border-radius: 15px;
-        background-color: white;
-        color: #007bff;
-        cursor: pointer;
-        font-size: 25px;
+<style scoped lang="scss">
+    .#{$prefix} {
+        &collapse-df{
+            position: absolute;
+            top: 64px;
+            z-index: 9999;
+            width: 100%;
+            background-color: white;
+        }
+        &home-icon-df {
+            border-radius: 15px;
+            background-color: white;
+            color: #007bff;
+            cursor: pointer;
+            font-size: 25px;
+        }
     }
 </style>

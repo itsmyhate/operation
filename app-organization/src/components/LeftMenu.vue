@@ -1,5 +1,5 @@
 <template>
-    <iMenu class="w-100" @on-select="menuClick"  :activeName="selectedKeys" :openNames="openKeys" accordion>
+    <iMenu class="w-100 h-100" @on-select="menuClick"  :activeName="selectedKeys" :openNames="openKeys" accordion>
         <template v-for="menu in menus" >
             <iMenuItem  :name="menu.menuId" v-if="!menu.children || !menu.children.length">
                 {{menu.menuName}}

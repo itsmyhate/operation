@@ -103,17 +103,11 @@
     })
 </script>
 
-<style scoped>
-    .org-body-df{
-
+<style lang="scss" scoped>
+    .#{$prefix} {
+        &body-df{
+        }
+        &header-df{
+        }
     }
-    .org-header-df{
-    }
-    /*.org-base-info-df{
-        background: #fafafa;
-        border: 1px solid #e8e8e8;
-    }*/
-    /*.org-foot-df{
-        max-height: 30px;
-    }*/
 </style>

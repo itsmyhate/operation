@@ -1,5 +1,5 @@
 import '@/assets/css/bootstrap.min.css';
-import '@/assets/css/common.css';
+import '@/assets/css/common.scss';
 import MockService from '@/mock/mock.service';
 import {startQiankun} from '@/qiankun.start';
 import {getMenusInfo} from '@/services/menus.service';
@@ -17,6 +17,8 @@ import App from './App.vue';
 import './registerServiceWorker';
 import router from './router';
 import {store} from './store';
+import '@/assets/css/common.scss'
+import 'zone.js'
 
 Vue.prototype.$COMMON = COMMON;
 Vue.config.productionTip = false;

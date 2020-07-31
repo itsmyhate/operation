@@ -1,7 +1,7 @@
 <template>
     <div class="d-flex flex-column">
         <div class="header-df d-flex flex-column justify-content-start">
-            <a-menu v-model="current" mode="horizontal" class="tenant-header-menu" :default-selected-keys="['tenant']" @click="handleClick">
+            <a-menu v-model="current" mode="horizontal" class="org-tenant-header-menu" :default-selected-keys="['tenant']" @click="handleClick">
                 <a-menu-item key="tenant" >租用情况统计</a-menu-item>
                 <a-menu-item key="overriew" >租户概览</a-menu-item>
             </a-menu>
@@ -10,55 +10,38 @@
         <!--租用情况统计-->
         <div v-show="showPage === true || showPage === '' || showPage === undefined || showPage === null ">
             <!--title-->
-            <div class="d-flex flex-column tenant-header">
-                <div class="d-flex flex-row tenant-herder-font">
-                    <div class="tenant-herder-lump"></div>
-                    <span class="ml-2">产品使用占比</span>
+            <div class="d-flex flex-column org-tenant-header">
+                <div class="d-flex flex-row org-tenant-herder-font">
+                    <span class="ml-2 org-blue-icon">产品使用占比</span>
                 </div>
             </div>
             <!--chart-->
             <div class="d-flex flex-column">
                 <div class="d-flex flex-row">
-                    <div id="ec1" class="ec1 echart-left justify-content-between"></div>
-                    <div id="ec2" class="ec2 echart-right justify-content-between"></div>
+                    <div id="ec1" class="ec1 org-echart-left justify-content-between"></div>
+                    <div id="ec2" class="ec2 org-echart-right justify-content-between"></div>
                 </div>
             </div>
-            <div style="">
-                <!--信托产品使用时长-->
-                <div class="d-flex flex-column tenant-header">
-                    <div class="d-flex flex-row tenant-foot-font">
-                        <div class="tenant-herder-lump"></div>
-                        <span class="ml-2">信托产品使用时长</span>
-                    </div>
-                </div>
-                <div class="d-flex flex-column justify-content-between" style="display: flex">
+            <div class="d-flex w-100" style="">
+                <div class="d-flex flex-column root-flex-1 justify-content-start m-3">
+                    <span class="org-blue-icon">信托产品使用时长</span>
                     <div class="d-flex flex-row">
-                        <div id="ec3" class="ec3" style="width: 40%;height:300px;"></div>
+                        <div id="ec3" class="w-100 ec3" style="height:300px;"></div>
                     </div>
                 </div>
-            </div>
-            <div style="">
-                <!--投后管理平台-->
-                <div class="d-flex flex-row tenant-foot-font">
-                    <div class="tenant-herder-lump"></div>
-                    <span class="ml-2">投后管理平台</span>
-                </div>
-                <div class="d-flex flex-column">
-                    <div class="d-flex flex-row">
-                        <a-table :columns="columns" :data-source="data" :showHeader="false" :row-key="record => record.time"
-                                 style="width: 40%;margin-left: 20px" :pagination="false">
-                        </a-table>
-                    </div>
+                <div class="d-flex flex-column root-flex-1 justify-content-start m-3">
+                    <span class="org-blue-icon">投后管理平台</span>
+                    <a-table class="w-100 ml-2" :columns="columns" :data-source="data" :showHeader="false" :row-key="record => record.time" :pagination="false">
+                    </a-table>
                 </div>
             </div>
         </div>
         <!--租户概览-->
         <div class="d-flex flex-column" v-if="showPage === false">
             <!--title-->
-            <div class="d-flex flex-column tenant-header">
-                <div class="d-flex flex-row tenant-herder-font">
-                    <div class="tenant-herder-lump"></div>
-                    <span class="ml-2">使用中租户</span>
+            <div class="d-flex flex-column org-tenant-header">
+                <div class="d-flex flex-row org-tenant-herder-font">
+                    <span class="ml-2 org-blue-icon">使用中租户</span>
                     <a-button class="d-flex justify-content-end h-100 mr-2" style="margin-left: auto">+新增租户</a-button>
                 </div>
             </div>
@@ -321,53 +304,47 @@
     })
 </script>
 
-<style scoped>
-    .tenant-header-menu{
-        font-size: 16px;
-    }
+<style scoped lang="scss">
+    .#{$prefix} {
+        &tenant-header-menu{
+            font-size: 16px;
+        }
 
-    .tenant-header {
-        width: 100%;
-        height: auto;
-    }
+        &tenant-header {
+            width: 100%;
+            height: auto;
+        }
 
-    .tenant-herder-lump {
-        width: 5px;
-        height: 16px;
-        background-color: #1972FF;
-        display: inline-flex;
-        align-items: center;
-    }
-
-    .tenant-herder-font {
-        font-size: 16px;
-        align-items: center;
-        display: inline-flex;
-        position: relative;
-        margin-left: 20px;
-        margin-top: 10px;
-    }
-    .tenant-foot-font {
-        font-size: 16px;
-        align-items: center;
-        display: inline-flex;
-        position: relative;
-        margin-left: 20px;
-        margin-top: 10px;
-    }
-    .echart-left{
-        height: 500px;
-        width: 50%;
-        padding: 15px;
-        display: flex;
-        margin-top: -50px;
-        left: -200px;
-    }
-    .echart-right{
-        height: 500px;
-        width: 50%;
-        padding: 15px;
-        margin-top: -50px;
-        display: flex;
+        &tenant-herder-font {
+            font-size: 16px;
+            align-items: center;
+            display: inline-flex;
+            position: relative;
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+        &tenant-foot-font {
+            font-size: 16px;
+            align-items: center;
+            display: inline-flex;
+            position: relative;
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+        &echart-left{
+            height: 500px;
+            width: 50%;
+            padding: 15px;
+            display: flex;
+            margin-top: -50px;
+            left: -200px;
+        }
+        &echart-right{
+            height: 500px;
+            width: 50%;
+            padding: 15px;
+            margin-top: -50px;
+            display: flex;
+        }
     }
 </style>

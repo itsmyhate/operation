@@ -155,16 +155,18 @@
     })
 </script>
 
-<style scoped>
-    .org-body-df{
-    }
-    .org-header-df{
-    }
-    .org-select-df{
-        background: #fafafa;
-        border: 1px solid #e8e8e8;
-    }
-    .org-app-button-df{
-        max-height: 20px;
+<style lang="scss" scoped>
+    .#{$prefix} {
+        &body-df{
+        }
+        &header-df{
+        }
+        &select-df{
+            background: #fafafa;
+            border: 1px solid #e8e8e8;
+        }
+        &app-button-df{
+            max-height: 20px;
+        }
     }
 </style>

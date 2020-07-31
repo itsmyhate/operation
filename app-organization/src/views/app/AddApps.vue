@@ -33,7 +33,7 @@
             </div>
             <div class="d-flex flex-column justify-content-start mt-3">
                 <span class="org-blue-icon">产品功能简介</span>
-                <div style="min-height: 300px"></div>
+                <div style="min-height: 100px"></div>
             </div>
             <div class="mt-2 d-flex justify-content-end org-foot-df">
                 <a-button class=" mr-2" type="primary" @click="createApp">确认创建</a-button>
@@ -68,7 +68,7 @@
                 },
                 rules: {
                     appId: [
-                        { required: true, message: '请输入产品Id', trigger: 'blur', pattern: new RegExp('[a-zA-Z]{5,10}') },
+                        { required: true, message: '请输入产品Id', trigger: 'blur', pattern: new RegExp('[a-zA-Z]{2,10}') },
                         // { min: 3, max: 5, message: 'Length should be 3 to 5', trigger: 'blur' },
                     ],appUrl: [
                         { required: true, message: '请输入产品地址', trigger: 'blur',
@@ -123,17 +123,11 @@
     })
 </script>
 
-<style scoped>
-    .org-body-df{
-
+<style lang="scss" scoped>
+    .#{$prefix} {
+        &body-df{
+        }
+        &header-df{
+        }
     }
-    .org-header-df{
-    }
-    /*.org-base-info-df{
-        background: #fafafa;
-        border: 1px solid #e8e8e8;
-    }*/
-    /*.org-foot-df{
-        max-height: 30px;
-    }*/
 </style>

@@ -29,7 +29,9 @@ function getMenusInfo(appName?: string): SysMenuInfo[] | SysAppInfo[] {
                     return val;
                 }
             });
-            return app.menuList;
+            if(app) {
+                return app.menuList || [];
+            }
         }
     }
     return [];
