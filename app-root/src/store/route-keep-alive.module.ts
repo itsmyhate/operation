@@ -1,4 +1,4 @@
-import {routes} from "@/router";
+import {routes} from '@/router';
 
 export const ALIVE_ROUTE_ROOT = 'root';
 export const SET_ALIVE_ROUTE = 'setAliveRoot';
@@ -24,12 +24,12 @@ const routeKeepAlive = {
     },
 };
 function getRouteKeepAlive(routesName: string, aliveRoute: any, routes: any[]) {
-    routes.forEach(value => {
-        if(value.meta && value.meta.keepAlive) {
-            if(!aliveRoute[routesName]) aliveRoute[routesName] = [];
+    routes.forEach((value) => {
+        if (value.meta && value.meta.keepAlive) {
+            if (!aliveRoute[routesName]) { aliveRoute[routesName] = []; }
             aliveRoute[routesName].push(value.name);
         }
-        if(value.children && !!value.children.length) {
+        if (value.children && !!value.children.length) {
             getRouteKeepAlive(value.name, aliveRoute, value.children);
         }
     });

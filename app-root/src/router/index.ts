@@ -1,8 +1,8 @@
+import loginRouting from '@/router/login/login.routing';
+import subAppRouting from '@/router/workbench/sub-app.routing';
+import workbenchRouting from '@/router/workbench/workbench.routing';
+import Vue from 'vue';
 import VueRouter, {RawLocation, RouteConfig} from 'vue-router';
-import Vue from "vue";
-import loginRouting from "@/router/login/login.routing";
-import workbenchRouting from "@/router/workbench/workbench.routing";
-import subAppRouting from "@/router/workbench/sub-app.routing";
 
 export const routes: RouteConfig[] = [
     {
@@ -36,8 +36,8 @@ router.beforeEach((to, from, next) => {
 });
 export default router;
 
-const originalPush = VueRouter.prototype.push
+const originalPush = VueRouter.prototype.push;
 VueRouter.prototype.push = function push(location: RawLocation) {
     // @ts-ignore
-    return originalPush.call(this, location).catch(err => {console.log(err)})
-}
+    return originalPush.call(this, location).catch((err) => {console.log(err); });
+};

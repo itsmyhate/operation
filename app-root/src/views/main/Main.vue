@@ -21,57 +21,57 @@
 </template>
 
 <script lang="ts">
-    import Vue from 'vue';
-    import LeftMenu from "@/components/LeftMenu.vue";
-    import RouteTopologyService from "@/services/route-topology.service";
-    import {GET_ALIVE_ROUTE} from "@/store/route-keep-alive.module";
-    import { getRootMenusInfo } from '@/services/menus.service';
-    export default Vue.extend({
-        name: "Main",
-        components: {LeftMenu},
-        data(): any {
-            return {
-                menus: [],
-                crumbs: [],
-                aliveRoutes: [],
-                activeKey: '',
-            }
-        },
-        created() {
-            this.menus = getRootMenusInfo();
-            this.aliveRoutes = this.$store.getters[GET_ALIVE_ROUTE]('Main')
+import LeftMenu from '@/components/LeftMenu.vue';
+import { getRootMenusInfo } from '@/services/menus.service';
+import RouteTopologyService from '@/services/route-topology.service';
+import {GET_ALIVE_ROUTE} from '@/store/route-keep-alive.module';
+import Vue from 'vue';
+export default Vue.extend({
+    name: 'Main',
+    components: {LeftMenu},
+    data() {
+        return {
+            menus: [],
+            crumbs: [],
+            aliveRoutes: [],
+            activeKey: '',
+        };
+    },
+    created() {
+        this.menus = getRootMenusInfo();
+        this.aliveRoutes = this.$store.getters[GET_ALIVE_ROUTE]('Main');
+        this.navPosition();
+    },
+    watch: {
+        $route() {
             this.navPosition();
-        },
-        watch: {
-            $route() {
-                this.navPosition();
-            }
-        },
-        methods: {
-            navPosition() {
-                const route = this.$route;
-                if(route.path.indexOf('/root') < 0) {
-                    return;
-                }
-                const key = route.path;
-                let crumb = this.crumbs.find((item: any) => item.key === key);
-                if (!crumb) {
-                    let title = "尚未设置";
-                    const currentMenu = RouteTopologyService.recursionSerarchMenuByPath(this.menus, route.path);
-                    if (!currentMenu) {
-                        title = route.meta && route.meta.name ? route.meta.name : title;
-                    } else {
-                        title = currentMenu.menuName;
-                    }
-                    crumb = { key: key, title: title, path: route.path, params: route.params.params };
-                    this.crumbs.push(crumb);
-                } else {
-                    crumb.params = route.params.params;
-                }
-                this.activeKey = crumb.key;
-            },
         }
-    })
+    },
+    methods: {
+        navPosition() {
+            const route = this.$route;
+            if (route.path.indexOf('/root') < 0) {
+                return;
+            }
+            const key = route.path;
+            let crumb: any = this.crumbs.find((item: any) => item.key === key);
+            if (!crumb) {
+                let title = '尚未设置';
+                const currentMenu = RouteTopologyService.recursionSerarchMenuByPath(this.menus, route.path);
+                if (!currentMenu) {
+                    title = route.meta && route.meta.name ? route.meta.name : title;
+                } else {
+                    title = currentMenu.menuName;
+                }
+                crumb = { key, title, path: route.path, params: route.params.params };
+                this.crumbs.push(crumb);
+            } else {
+                crumb.params = route.params.params;
+            }
+            this.activeKey = crumb.key;
+        },
+    }
+});
 </script>
 
 <style scoped>

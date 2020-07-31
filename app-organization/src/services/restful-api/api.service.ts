@@ -17,7 +17,7 @@ const ApiService = {
         if (process.env.VUE_APP_ENABLE_MOCK != EnableTypeEnum.YES.code) {
             Vue.axios.defaults.baseURL = process.env.VUE_APP_BASE_URL;
         }
-        const headers = AuthService.createBasicHeaders();
+        const headers: any = AuthService.createBasicHeaders();
         Object.keys(headers).forEach(function (key) {
             Vue.axios.defaults.headers.common[key] = headers[key];
         });
@@ -73,7 +73,7 @@ const ApiService = {
             .then(this.createBusCodeHander())
             .catch(this.createErrorHander());
     },
-    general(api: any, query: Query = {}, params: any = null, requestConfig?: AxiosRequestConfig | any): any  {
+    general(api: any, query: Query = {}, params: any = null, requestConfig?: AxiosRequestConfig): Promise<RestfulResponse> {
         if (!!api.url && !!api.method) {
             if (requestConfig == null) {
                 switch (api.header) {
@@ -85,6 +85,7 @@ const ApiService = {
                         break;
                 }
             }
+            requestConfig = requestConfig || {};
             switch (api.method) {
                 case MethodTypeEnum.GET.code:
                     return this.get(api.url, query, requestConfig);
@@ -98,8 +99,19 @@ const ApiService = {
                 case MethodTypeEnum.DELETE.code:
                     return this.delete(api.url, query, requestConfig);
                     break;
+                default:
+                    return new Promise<RestfulResponse>(
+                        (resolve, reject) => {
+                            resolve(),reject()
+                        }
+                    );
             }
         }
+        return new Promise<RestfulResponse>(
+            (resolve, reject) => {
+                resolve(),reject()
+            }
+        );
     },
     createBusCodeHander() {
         return function (response: any) {

@@ -1,8 +1,8 @@
+import {appHisRoute} from '@/store/app-his-route.module';
+import routeKeepAlive from '@/store/route-keep-alive.module';
+import routeTopology from '@/store/route-topology.module';
 import Vue from 'vue';
 import Vuex from 'vuex';
-import {appHisRoute} from "@/store/app-his-route.module";
-import routeTopology from "@/store/route-topology.module";
-import routeKeepAlive from "@/store/route-keep-alive.module";
 Vue.use(Vuex);
 
 export const store = new Vuex.Store({
@@ -21,7 +21,7 @@ export const store = new Vuex.Store({
   },
   actions: {
     setTest: (injectee, payload) => {
-      injectee.commit('setTest', payload)
+      injectee.commit('setTest', payload);
     }
   },
   modules: {

@@ -34,7 +34,7 @@
     export default Vue.extend({
         name: "Main",
         components: {LeftMenu},
-        data(): any {
+        data() {
             return {
                 aliveRoutes: [],
                 crumbs: [],
@@ -49,12 +49,12 @@
         },
         created() {
             this.aliveRoutes = this.$store.getters[GET_ALIVE_ROUTE]('Main');
-            console.log(this.aliveRoutes);
+            console.log(this.$COMMON.ActionsKeyEnum.getMenuInfo, this.$COMMON.AppNameEnum.organization)
             this.$COMMON.globalStateService.dispatch( this.$COMMON.AppNameEnum.root,
                 new GlobalState({
                     action: this.$COMMON.ActionsKeyEnum.getMenuInfo,
                     payload: this.$COMMON.AppNameEnum.organization,
-                    callBack: (menus: SysMenuInfo[])=> {
+                    callBack: (menus: SysMenuInfo[]) => {
                         this.menus = menus;
                         this.navPosition();
                     }
@@ -82,24 +82,24 @@
                 this.activeKey = crumb.key;
             },
             closeCrumb(event: any, crumb: any) {
-                const name = crumb.component;
-                if(!!name) {
+                const idx = this.crumbs.findIndex((val: any) => val.key === crumb.key);
+                if(idx < 0) return;
+                const routeFlag = this.crumbs[idx].key === this.activeKey; // 是否当前路由
+                this.crumbs.splice(idx, 1);
+                if(!!crumb.component) {
                     const aliveRoutes = this.$store.getters[GET_ALL_ALIVE_ROUTE];
                     for (let key in aliveRoutes) {
                         const ar = aliveRoutes[key];
-                        const bool = !!ar.find((val: any) => val === name);
+                        const bool = !!ar.find((val: any) => val === crumb.component);
                         if(bool) {
-                            this.destoryComponent(this.$children, name);
-                            const idx = this.crumbs.findIndex((val: any) => val.key === crumb.key);
-                            const routeFlag = this.crumbs[idx].key === this.activeKey;
-                            this.crumbs.splice(idx, 1);
-                            if(routeFlag) {
-                                const newCrumb = this.crumbs[this.crumbs.length-1];
-                                this.$router.push({path: newCrumb.path});
-                            }
+                            this.destoryComponent(this.$children, crumb.component);
                             break;
                         }
                     }
+                }
+                if(routeFlag) {
+                    const newCrumb: any = this.crumbs[this.crumbs.length-1];
+                    this.$router.push({path: newCrumb.path});
                 }
             },
             destoryComponent(components: any[], name: string) {

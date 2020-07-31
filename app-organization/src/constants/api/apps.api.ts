@@ -1,7 +1,7 @@
 import { MethodTypeEnum } from "@/constants/enums/method-type.enum";
 import { HeaderTypeEnum } from "@/constants/enums/header-type.enum";
 
-const prefix = process.env.VUE_APP_API_PREFIX + "/sys_app_info";
+const prefix = process.env.VUE_APP_API_CORE_PREFIX + "/sysAppInfo";
 const appsApi = {
 
   addApp: {

@@ -1,7 +1,7 @@
-export class GlobalState{
-    action: string;
-    payload: any;
-    callBack: (...args: any[]) => void;
+export class GlobalState {
+    public action: string;
+    public payload: any;
+    public callBack: (...args: any[]) => void;
     constructor(options: {
         action?: string,
         payload?: any,
@@ -9,6 +9,6 @@ export class GlobalState{
     }) {
         this.action = options.action || '',
         this.payload = options.payload || {},
-        this.callBack = options.callBack || function (...args) {}
+        this.callBack = options.callBack || function(...args) {};
     }
 }

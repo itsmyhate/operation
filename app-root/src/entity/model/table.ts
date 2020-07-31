@@ -1,7 +1,7 @@
 export class ColumnAction {
-    name: string;
-    text: string;
-    callBack: Function;
+    public name: string;
+    public text: string;
+    public callBack: Function;
     constructor(options: {
         name: string,
         text: string,
@@ -9,18 +9,18 @@ export class ColumnAction {
     }) {
         this.name = options.name || '',
         this.text = options.text || '',
-        this.callBack = options.callBack || undefined
+        this.callBack = options.callBack || undefined;
     }
 }
 export class TableColumn {
-    name: string;
-    text: string;
-    dictKey: string;
-    format: string;
-    ellipsis: boolean;
-    isHide: boolean;
-    titleSlots: {name: string};
-    bodySlots: {name: string};
+    public name: string;
+    public text: string;
+    public dictKey: string;
+    public format: string;
+    public ellipsis: boolean;
+    public isHide: boolean;
+    public titleSlots: {name: string};
+    public bodySlots: {name: string};
     constructor(options: {
         name: string,
         text: string,
@@ -38,6 +38,6 @@ export class TableColumn {
         this.ellipsis = options.ellipsis || false,
         this.isHide = options.isHide || false,
         this.titleSlots = options.titleSlots || {name: ''},
-        this.bodySlots = options.bodySlots || {name: ''}
+        this.bodySlots = options.bodySlots || {name: ''};
     }
 }
