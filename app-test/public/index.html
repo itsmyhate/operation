@@ -6,15 +6,15 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <!--使用CDN的CSS文件-->
-    <% for (var i in htmlWebpackPlugin.options.cdn &&
+    <!--<% for (var i in htmlWebpackPlugin.options.cdn &&
     htmlWebpackPlugin.options.cdn.css) { %>
     <link rel="stylesheet" href="<%= htmlWebpackPlugin.options.cdn.css[i] %>" />
     <% } %>
-    <!-- 使用CDN的JS文件 -->
+    &lt;!&ndash; 使用CDN的JS文件 &ndash;&gt;
     <% for (var i in htmlWebpackPlugin.options.cdn &&
     htmlWebpackPlugin.options.cdn.js) { %>
     <script type="text/javascript" src="<%= htmlWebpackPlugin.options.cdn.js[i] %>"></script>
-    <% } %>
+    <% } %>-->
     <title><%= htmlWebpackPlugin.options.title %></title>
   </head>
   <body>

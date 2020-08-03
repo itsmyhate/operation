@@ -35,16 +35,13 @@ module.exports = {
         },
     },
     // productionSourceMap: false,
-    /*configureWebpack: {
-        externals: externals,
-    }*/
-    chainWebpack: config => {
+    /*chainWebpack: config => {
         config.set('externals', externals)
         config.plugin('html').tap(args => {
             args[0].cdn = cdn
             return args;
         })
-    },
+    },*/
     // 自定义webpack配置
     configureWebpack: {
         resolve: {
