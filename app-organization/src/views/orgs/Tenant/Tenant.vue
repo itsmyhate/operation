@@ -46,6 +46,12 @@
                 </div>
             </div>
             <tenant-show-component></tenant-show-component>
+            <div class="d-flex flex-column org-tenant-header">
+                <div class="d-flex flex-row org-tenant-herder-font">
+                    <span class="ml-2 org-blue-icon">停用租户</span>
+                </div>
+            </div>
+
         </div>
     </div>
 </template>
@@ -54,7 +60,13 @@
     import Vue from 'vue';
     import {Menu, Table, Divider, Select, Button} from "ant-design-vue";
     import TenantShowComponent from "@/components/Tenant/TenantShowComponent.vue";
-    import {drawEchart, drawEcharts, drawLineChart} from "@/constants/component/Tenant/tenant-echarts";
+    import TenantDisabledComponent from "@/components/Tenant/TenantDisabledComponent.vue";
+    import {drawEcharts, ceshi, renderTab} from "@/constants/component/Tenant/tenant-echarts";
+    import ApiService from "@/services/restful-api/api.service";
+    import tenantsApi from "@/constants/api/tenants.api";
+    import AuthService from "@/services/auth.service";
+    import {RestfulResponse} from "@/entity/model/RestfulResponse";
+
 
     Vue.use(Menu);
     Vue.use(Table);
@@ -64,7 +76,8 @@
     export default Vue.extend({
         name: "Tenant",
         components: {
-          TenantShowComponent
+            TenantShowComponent,
+            TenantDisabledComponent
         },
         data() {
             return {
@@ -94,214 +107,222 @@
                 ],
                 echartData: [
                     {
-                        "appBusiType": "贷款产品",
-                        "tenantCount": 16,
-                        "appList": [
+                        appBusiType: "贷款产品",
+                        tenantCount: 16,
+                        appList: [
                             {
-                                "appName": "平台1",
-                                "appCount": 100,
-                                "appUseTime": 1000,
-                                "tenantList": [
+                                appName: "平台1",
+                                appCount: 10,
+                                appUseTime: 196,
+                                tenantList: [
                                     {
-                                        "tenName": "张三",
-                                        "tenUseTime": 1000,
-                                        "userCount": 100
+                                        tenName: "张三",
+                                        tenUseTime: 1000,
+                                        userCount: 36
+                                    },
+                                    {
+                                        tenName: "李四",
+                                        tenUseTime: 1000,
+                                        userCount: 10
+                                    },
+                                    {
+                                        tenName: "王五",
+                                        tenUseTime: 1000,
+                                        userCount: 55
+                                    },
+                                ]
+                            },
+                            {
+                                appName: "平台2",
+                                appCount: 36,
+                                appUseTime: 271,
+                                tenantList: [
+                                    {
+                                        tenName: "张三",
+                                        tenUseTime: 1000,
+                                        userCount: 100
                                     }
                                 ]
                             },
                             {
-                                "appName": "平台2",
-                                "appCount": 100,
-                                "appUseTime": 1000,
-                                "tenantList": [
+                                appName: "平台3",
+                                appCount: 27,
+                                appUseTime: 77,
+                                tenantList: [
                                     {
-                                        "tenName": "张三",
-                                        "tenUseTime": 1000,
-                                        "userCount": 100
+                                        tenName: "张三",
+                                        tenUseTime: 1000,
+                                        userCount: 100
                                     }
                                 ]
                             },
                             {
-                                "appName": "平台3",
-                                "appCount": 100,
-                                "appUseTime": 1000,
-                                "tenantList": [
+                                appName: "平台4",
+                                appCount: 60,
+                                appUseTime: 1000,
+                                tenantList: [
                                     {
-                                        "tenName": "张三",
-                                        "tenUseTime": 1000,
-                                        "userCount": 100
+                                        tenName: "张三",
+                                        tenUseTime: 1000,
+                                        userCount: 100
                                     }
                                 ]
                             },
-                            {
-                                "appName": "平台4",
-                                "appCount": 100,
-                                "appUseTime": 1000,
-                                "tenantList": [
-                                    {
-                                        "tenName": "张三",
-                                        "tenUseTime": 1000,
-                                        "userCount": 100
-                                    }
-                                ]
-                            }
                         ]
                     },
                     {
-                        "appBusiType": "银行产品",
-                        "tenantCount": 17,
-                        "appList": [
+                        appBusiType: "银行产品",
+                        tenantCount: 36,
+                        appList: [
                             {
-                                "appName": "平台1",
-                                "appCount": 100,
-                                "appUseTime": 1000,
-                                "tenantList": [
+                                appName: "平台1",
+                                appCount: 47,
+                                appUseTime: 96,
+                                tenantList: [
                                     {
-                                        "tenName": "张三",
-                                        "tenUseTime": 1000,
-                                        "userCount": 100
+                                        tenName: "张三",
+                                        tenUseTime: 1000,
+                                        userCount: 100
                                     }
                                 ]
                             },
                             {
-                                "appName": "平台2",
-                                "appCount": 100,
-                                "appUseTime": 1000,
-                                "tenantList": [
+                                appName: "平台2",
+                                appCount: 28,
+                                appUseTime: 335,
+                                tenantList: [
                                     {
-                                        "tenName": "张三",
-                                        "tenUseTime": 1000,
-                                        "userCount": 100
+                                        tenName: "张三",
+                                        tenUseTime: 1000,
+                                        userCount: 100
                                     }
                                 ]
                             },
                             {
-                                "appName": "平台3",
-                                "appCount": 100,
-                                "appUseTime": 1000,
-                                "tenantList": [
+                                appName: "平台3",
+                                appCount: 55,
+                                appUseTime: 471,
+                                tenantList: [
                                     {
-                                        "tenName": "张三",
-                                        "tenUseTime": 1000,
-                                        "userCount": 100
+                                        tenName: "张三",
+                                        tenUseTime: 1000,
+                                        userCount: 100
                                     }
                                 ]
                             },
                             {
-                                "appName": "平台4",
-                                "appCount": 100,
-                                "appUseTime": 1000,
-                                "tenantList": [
+                                appName: "平台4",
+                                appCount: 71,
+                                appUseTime: 150,
+                                tenantList: [
                                     {
-                                        "tenName": "张三",
-                                        "tenUseTime": 1000,
-                                        "userCount": 100
+                                        tenName: "张三",
+                                        tenUseTime: 1000,
+                                        userCount: 100
                                     }
                                 ]
-                            }
+                            },
                         ]
                     },
                     {
-                        "appBusiType": "信托产品",
-                        "tenantCount": 10,
-                        "appList": [
+                        appBusiType: "信托产品",
+                        tenantCount: 22,
+                        appList: [
                             {
-                                "appName": "平台1",
-                                "appCount": 100,
-                                "appUseTime": 1000,
-                                "tenantList": [
+                                appName: "平台1",
+                                appCount: 100,
+                                appUseTime: 1000,
+                                tenantList: [
                                     {
-                                        "tenName": "张三",
-                                        "tenUseTime": 1000,
-                                        "userCount": 100
+                                        tenName: "张三",
+                                        tenUseTime: 1000,
+                                        userCount: 100
                                     }
                                 ]
                             },
                             {
-                                "appName": "平台2",
-                                "appCount": 100,
-                                "appUseTime": 1000,
-                                "tenantList": [
+                                appName: "平台2",
+                                appCount: 100,
+                                appUseTime: 1000,
+                                tenantList: [
                                     {
-                                        "tenName": "张三",
-                                        "tenUseTime": 1000,
-                                        "userCount": 100
+                                        tenName: "张三",
+                                        tenUseTime: 1000,
+                                        userCount: 100
                                     }
                                 ]
                             },
                             {
-                                "appName": "平台3",
-                                "appCount": 100,
-                                "appUseTime": 1000,
-                                "tenantList": [
+                                appName: "平台3",
+                                appCount: 100,
+                                appUseTime: 1000,
+                                tenantList: [
                                     {
-                                        "tenName": "张三",
-                                        "tenUseTime": 1000,
-                                        "userCount": 100
+                                        tenName: "张三",
+                                        tenUseTime: 1000,
+                                        userCount: 100
                                     }
                                 ]
                             },
                             {
-                                "appName": "平台4",
-                                "appCount": 100,
-                                "appUseTime": 1000,
-                                "tenantList": [
+                                appName: "平台4",
+                                appCount: 100,
+                                appUseTime: 1000,
+                                tenantList: [
                                     {
-                                        "tenName": "张三",
-                                        "tenUseTime": 1000,
-                                        "userCount": 100
+                                        tenName: "张三",
+                                        tenUseTime: 1000,
+                                        userCount: 100
                                     }
                                 ]
-                            }
+                            },
                         ]
-                    }
+                    },
                 ],
                 columns: [
                     {
-                        title: 'name',
-                        dataIndex: 'name',
+                        title: '祖永明',
+                        dataIndex: 'tenName',
                         align: 'center'
                     },
                     {
-                        title: 'time',
-                        dataIndex: 'time',
+                        title: '租用时间',
+                        dataIndex: 'tenUseTime',
                         align: 'center'
                     },
                     {
-                        title: 'people',
-                        dataIndex: 'people',
+                        title: '次数',
+                        dataIndex: 'userCount',
                         align: 'center'
                     }
                 ],
-                data: [
-                    {name:'张三', time: '24', people: '26'},
-                    {name:'赵四', time: '36', people: '26'},
-                    {name:'王五', time: '128', people: '26'},
-                ],
-            };
+                data: []
+            }
         },
         methods: {
             handleClick(e: any) {
                 console.log(e.key);
                 if (e.key === 'overriew') {
                     this.showPage = false;
-                    console.log(this.showPage);
+                    console.log(this.showPage)
                 }
                 if (e.key === 'tenant' || e.key === '') {
                     this.showPage = true;
-                    console.log(this.showPage);
+                    console.log(this.showPage)
                 }
             },
-        },
-        mounted() {
-            drawEchart(this.productInfo, 'ec1');
-            drawEchart(this.platformInfo, 'ec2');
-            drawLineChart(this.userTimeInfo, 'ec3');
-            // drawEcharts(this.productInfo, 'ec1', 'ec2', 'ec3');
-            // drawEcharts(this.echartData, 'ec1', 'ec2', 'ec3');
-        },
+            fetch() {
+                ApiService.get(tenantsApi.initChart.url, {}, AuthService.createAuthHeaders()).then((response: RestfulResponse) => {
+                    this.echartData = response.data;
+                    console.log(response);
+                });
+            },
 
-    });
+    },
+        mounted() {
+            drawEcharts(this.echartData, 'ec1', 'ec2', 'ec3');
+        }
+    })
 </script>
 
 <style scoped lang="scss">

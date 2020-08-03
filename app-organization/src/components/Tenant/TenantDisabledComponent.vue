@@ -1,35 +1,29 @@
 <template>
     <div>
         <a-row :gutter="48">
-            <a-col v-for="num in 10" :span="7" class="d-flex flex-column ml-5 org-tenant-col">
+            <a-col v-for="num in 3" :span="7" class="d-flex flex-column ml-5 org-tenant-col">
                 <a-card id="card1" title="xx信托" :hoverable="true" class="org-card-df" :gutter="6">
                     <span slot="extra">
-                        <a-button class="mr-2 org-btn-add">+添加产品</a-button>
+                        <a-button class="mr-2 org-btn-add">删除</a-button>
                     </span>
-                    <div v-for="num in 10">
-                        <p>card content<span class="org-pd-auth" @click="authorization">产品授权</span></p>
+                    <div v-for="num in 3">
+                        <p>card content</p>
                     </div>
+                    <span>启动设置</span>
                 </a-card>
             </a-col>
         </a-row>
     </div>
 </template>
+
 <script lang="ts">
-    /**
-     * 租户概览展示块
-     */
     import Vue from 'vue';
     import {Divider, Card} from 'ant-design-vue';
 
     Vue.use(Divider).use(Card);
 
     export default Vue.extend({
-        name: "TenantShowComponent",
-        methods: {
-            authorization() {
-                this.$router.push('/main/tenantsauthorization')
-            }
-        },
+        name: "TenantDisabledComponent"
     })
 </script>
 
@@ -64,5 +58,4 @@
 
         }
     }
-
 </style>

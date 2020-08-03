@@ -1,11 +1,19 @@
+export var ceshi =  [];
+
 export function drawEcharts(body: any[], element1: string, element2: string, element3: string) {
-    var defaultPlatform = body[0];
+    var defaultPlatform = body[0].appList;
+    var defaultUseTime = body[0].appList;
+    console.log(1)
+    console.log(body[0].appList[0].tenantList)
+    console.log(2)
+    ceshi = body[0].appList[0].tenantList;
     var chooseName = '';
+    console.log(body[0].appList)
+
     /**
-     * echary 绘制产品下各平台的饼图
-     * @param productInfo 产品信息，包括value和name
-     * @param element 选中div，即在何处画
-     * @author fanke
+     * 绘制产品饼图
+     * @param info
+     * @param element
      */
     function drawEchart1(info: any[], element: string) {
         var echarts = require('echarts');
@@ -91,7 +99,7 @@ export function drawEcharts(body: any[], element1: string, element2: string, ele
                 orient: 'vertical',
                 // x: 'right',
                 y: 'center',
-                left: 650,
+                left: 600,
                 data: pdname,
                 icon: "circle",
                 fontSize: 16,
@@ -122,12 +130,19 @@ export function drawEcharts(body: any[], element1: string, element2: string, ele
         myChart.on('legendselectchanged', function (params: any) {
             // 获取点击图例的选中状态
             var isSelected = params.selected[params.name];
-            // 在控制台中打印
-            console.log((isSelected ? '选中了' : '取消选中了') + '图例' + params.name);
-            chooseName = params;
-            console.log('params' + JSON.stringify(params))
-            // 打印所有图例的状态
-            console.log(params.selected);
+
+            chooseName = params.name;
+            var choseData = [];
+            for(let i=0;i<info.length;i++){
+                if(info[i].appBusiType === params.name){
+                    choseData = info[i].appList;
+                    ceshi = choseData[i].tenantList;
+                }
+            }
+            console.log('如下是表格的数据：');
+            renderTab();
+            drawEchart2(choseData, 'ec2');
+            drawLineChart(choseData, 'ec3');
             if (isSelected === false){
                 myChart.dispatchAction({
                     type: 'legendToggleSelect',
@@ -138,9 +153,15 @@ export function drawEcharts(body: any[], element1: string, element2: string, ele
                 type: 'pieToggleSelect',
                 name: params.name
             });
+            return ceshi;
         });
     }
 
+    /**
+     * 绘制产品下平台的饼图
+     * @param info
+     * @param element
+     */
     function drawEchart2(info: any[], element: string) {
         var echarts = require('echarts');
         var dom = document.getElementById(element);
@@ -149,12 +170,12 @@ export function drawEcharts(body: any[], element1: string, element2: string, ele
         var pdname = new Array();
         var productInfo = new Array();
         for (let i = 0; i < info.length; i++) {
-            sum += info[i].tenantCount;
+            sum += info[i].appCount;
             productInfo[i]= {
-                value: info[i].tenantCount,
-                name: info[i].appBusiType
+                value: info[i].appCount,
+                name: info[i].appName
             };
-            pdname[i] = info[i].appBusiType
+            pdname[i] = info[i].appName
         }
         myChart.setOption({
             tooltip: {
@@ -226,15 +247,20 @@ export function drawEcharts(body: any[], element1: string, element2: string, ele
      * @param userInfo
      * @param element
      */
-    function drawLineChart(userInfo: any[], element: string) {
+    function drawLineChart(info: any[], element: string) {
         var echarts = require('echarts');
         var dom = document.getElementById(element);
         var myChart = echarts.init(dom);
         var value = [];
         var name = [];
-        for (let i = 0; i < userInfo.length; i++) {
-            value[i] = userInfo[i].value;
-            name[i] = userInfo[i].name;
+        var userInfo = [];
+        for (let i = 0; i < info.length; i++) {
+            userInfo[i] = {
+                value: info[i].appUseTime,
+                name: info[i].appName
+            }
+            value[i] = info[i].appUseTime;
+            name[i] = info[i].appName
         }
         var option = {
             tooltip: {
@@ -276,8 +302,23 @@ export function drawEcharts(body: any[], element1: string, element2: string, ele
 
     drawEchart1(body, element1);
     drawEchart2(defaultPlatform, element2);
-    drawLineChart(body, element3);
+    drawLineChart(defaultUseTime, element3);
 }
+
+export function renderTab() {
+    console.log(ceshi);
+    return ceshi;
+}
+
+
+
+
+
+
+
+
+
+
 /**
  * echary 绘制产品下各平台的饼图
  * @param productInfo 产品信息，包括value和name
@@ -315,7 +356,7 @@ export function drawEchart(productInfo:  any[], element: string) {
                     text: sum + "家\r\n租户",
                     textAlign: "center",
                     fill: "#000000",
-                    fontSize: 18
+                    fontSize: 18,
                 }
             },
             series: [
@@ -361,9 +402,9 @@ export function drawEchart(productInfo:  any[], element: string) {
             ],
             legend: {
                 orient: 'vertical',
-                // x: 'right',
+                // x: 'left',
                 y: 'center',
-                left: 650,
+                right: 10,
                 data: ['银行产品', '信托产品', '租赁产品', '其他产品'],
                 icon:"circle",
                 fontSize: 16,
