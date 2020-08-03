@@ -8,8 +8,8 @@ import './public-path';
 import {COMMON} from 'app-constants-js';
 
 import '@/assets/css/bootstrap.min.css';
-import 'ant-design-vue/dist/antd.css'
-import '@/assets/css/common.scss'
+import 'ant-design-vue/dist/antd.css';
+import '@/assets/css/common.scss';
 
 import API from 'app-component';
 import {GlobalState} from "@/entity/model/GlobalState";
@@ -25,7 +25,7 @@ let vue: Vue;
 Vue.use(API);
 
 async function initApp(props?: any) {
-  if(process.env.NODE_ENV === 'development') {
+  if (process.env.NODE_ENV === 'development') {
     const constants = await import('../../app-constants/src/index');
     Vue.prototype.$COMMON = constants.COMMON;
     render();
@@ -49,7 +49,7 @@ function render() {
 }
 
 // @ts-ignore
-if(!window.__POWERED_BY_QIANKUN__) {
+if (!window.__POWERED_BY_QIANKUN__) {
   initApp().then(() => {
   });
 }
@@ -58,31 +58,39 @@ export async function bootstrap(props: any) {
 }
 export async function mount(props: any) {
   await initApp(props);
-  vue.$COMMON.globalStateService.setAction(props);
-  /*
-  * test观察者
-  * */
-  vue.$COMMON.globalStateService.on(vue.$COMMON.AppNameEnum.organization, (state: GlobalState, preState: GlobalState) => {
-    console.log('organization观察者：', state.action);
-  });
+  const actionsKeyEnum = vue.$COMMON.ActionsKeyEnum;
+  const globalStateService = vue.$COMMON.globalStateService;
+  globalStateService.setAction(props);
 
-  vue.$COMMON.globalStateService.dispatch(vue.$COMMON.AppNameEnum.root, new GlobalState({
-    action: vue.$COMMON.ActionsKeyEnum.getHisRoute, payload: vue.$COMMON.AppNameEnum.organization, callBack: (url) => {
-      console.log('organization...mount setAppRouteAction.......', url);
-      if(!!url) {
-        vue.$router.push({path: url});
-      }
+  globalStateService.on(vue.$COMMON.AppNameEnum.organization, (state: GlobalState, preState: GlobalState) => {
+    console.log('organization观察者：', state.action, state.payload);
+    /*
+    * 快照时，添加监听
+    * 失活又重新激活后，需要进入上次失活的路由地址
+    * */
+    if (state.action === actionsKeyEnum.setHisRoute) {
+      vue.$router.push({path: state.payload});
+      if (state.callBack) { state.callBack(); }
     }
-  }));
+  });
+  /*
+  * 快照时，添加下面跳转；
+  * --mount后便不会再unmount
+  * */
+  await vue.$router.push({path: '/main/members'});
+  /*
+  * 非快照时，需要触发获取上次路由
+  * */
+  /*globalStateService.dispatch(vue.$COMMON.AppNameEnum.root, new GlobalState({
+    action: actionsKeyEnum.getHisRoute,
+    payload: vue.$COMMON.AppNameEnum.organization,
+    callBack: (url) => {
+      url = !!url ? url : '/main/members';
+      vue.$router.push({path: url});
+    }
+  }));*/
 }
 export async function unmount(props: any) {
-  const path = vue.$route.path;
-  vue.$COMMON.globalStateService.dispatch(vue.$COMMON.AppNameEnum.root, new GlobalState({
-    action: vue.$COMMON.ActionsKeyEnum.setHisRoute, payload: {[vue.$COMMON.AppNameEnum.organization]: path},
-    callBack: () => {
-      console.log('organization...unmount setAppRouteAction.......', path);
-    }
-  }));
   destoryRouter();
   destoryStore();
   vue.$destroy();

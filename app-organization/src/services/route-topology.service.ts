@@ -22,8 +22,8 @@ const RouteTopologyService = {
   },
   treeRecursion(routes: any[], parentPath = "", treeRoutes: any[] = []): any[] {
     parentPath = parentPath + (parentPath === "" ? "" : "/");
-    routes.forEach(item => {
-      let parent = "";
+    routes.forEach((item) => {
+      let parent: any = "";
       if (item.meta && item.meta.parent) {
         if (item.meta.parent.indexOf("./") === 0) {
           parent = parentPath + item.meta.parent.replace("./", "");
@@ -34,7 +34,7 @@ const RouteTopologyService = {
       const it: any = {
         path: parentPath + item.path,
         meta: item.meta,
-        parent: parent
+        parent
       };
       if (item.children != null && item.children.length > 0) {
         it.children = [];
@@ -45,7 +45,7 @@ const RouteTopologyService = {
     return treeRoutes;
   },
   horizontalRecursion(treeRoutes: any[], horizontalRoutes: any[] = []): any {
-    treeRoutes.forEach(item => {
+    treeRoutes.forEach((item) => {
       horizontalRoutes.push({
         path: item.path,
         meta: item.meta,
@@ -59,7 +59,7 @@ const RouteTopologyService = {
   },
   fetchNodes(path: any, nodes: any[] = []) {
     const horizontalRoutes: any[] = store.getters[ROUTE_TOPOLOGY + "/" + HORIZONTAL_ROUTES];
-    const node = horizontalRoutes.find(it => it.path === path);
+    const node = horizontalRoutes.find((it) => it.path === path);
     if (node != null) {
       nodes.push(JSON.parse(JSON.stringify(node)));
       if (node.parent) {

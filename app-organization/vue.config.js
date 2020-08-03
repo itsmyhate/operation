@@ -1,6 +1,6 @@
 const path = require('path');
 const { name } = require('./package');
-
+const CompressionPlugin = require('compression-webpack-plugin');
 function resolve(dir) {
     return path.join(__dirname, dir);
 }
@@ -84,9 +84,11 @@ module.exports = {
             libraryTarget: 'umd',
             jsonpFunction: `webpackJsonp_${name}`,
         },
+    },
+    /*configureWebpack: config => {
         // 开启 gzip 压缩
         // 需要 npm i -D compression-webpack-plugin
-        /*const plugins = [];
+        const plugins = [];
         if (process.env.NODE_ENV === 'production') {
             plugins.push(
                 new CompressionPlugin({
@@ -98,6 +100,6 @@ module.exports = {
                 })
             );
         }
-        config.plugins = [...config.plugins, ...plugins];*/
-    },
+        config.plugins = [...config.plugins, ...plugins];
+    },*/
 }

@@ -1,7 +1,7 @@
 export class GlobalState {
-    action: string;
-    payload: any;
-    callBack: ((...args: any[]) => void) | null;
+    public action: string;
+    public payload: any;
+    public callBack: ((...args: any[]) => void) | null;
     constructor(options: {
         action?: string,
         payload?: any,

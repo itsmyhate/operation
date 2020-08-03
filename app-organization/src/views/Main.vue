@@ -34,7 +34,7 @@
     export default Vue.extend({
         name: "Main",
         components: {LeftMenu},
-        data() {
+        data(): any {
             return {
                 aliveRoutes: [],
                 crumbs: [],
@@ -44,12 +44,13 @@
         },
         watch: {
             $route() {
-                this.navPosition();
+                if(this.$route.path.startsWith('/main')) {
+                    this.navPosition();
+                }
             }
         },
         created() {
             this.aliveRoutes = this.$store.getters[GET_ALIVE_ROUTE]('Main');
-            console.log(this.$COMMON.ActionsKeyEnum.getMenuInfo, this.$COMMON.AppNameEnum.organization)
             this.$COMMON.globalStateService.dispatch( this.$COMMON.AppNameEnum.root,
                 new GlobalState({
                     action: this.$COMMON.ActionsKeyEnum.getMenuInfo,

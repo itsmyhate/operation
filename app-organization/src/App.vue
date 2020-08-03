@@ -1,7 +1,9 @@
 <template>
   <a-locale-provider :locale="locale">
     <div id="organization" class="root-container">
-      <router-view/>
+      <keep-alive>
+        <router-view/>
+      </keep-alive>
     </div>
   </a-locale-provider>
 </template>

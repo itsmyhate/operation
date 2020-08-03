@@ -277,19 +277,19 @@
                     {name:'张三', time: '24', people: '26'},
                     {name:'赵四', time: '36', people: '26'},
                     {name:'王五', time: '128', people: '26'},
-                ]
-            }
+                ],
+            };
         },
         methods: {
             handleClick(e: any) {
                 console.log(e.key);
-                if(e.key === 'overriew') {
+                if (e.key === 'overriew') {
                     this.showPage = false;
-                    console.log(this.showPage)
+                    console.log(this.showPage);
                 }
-                if(e.key === 'tenant' || e.key === '') {
+                if (e.key === 'tenant' || e.key === '') {
                     this.showPage = true;
-                    console.log(this.showPage)
+                    console.log(this.showPage);
                 }
             },
         },
@@ -301,7 +301,7 @@
             // drawEcharts(this.echartData, 'ec1', 'ec2', 'ec3');
         },
 
-    })
+    });
 </script>
 
 <style scoped lang="scss">
