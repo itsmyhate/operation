@@ -18,7 +18,7 @@ export class UserToken {
   } = {}) {
     this.accessToken = options.accessToken || '';
     this.refreshToken = options.refreshToken || '';
-    this.expiresIn = !!options.expiresIn ? options.expiresIn : null;
+    this.expiresIn = !!options.expiresIn ? options.expiresIn : 0;
     this.time = !!options.time ? options.time : 0;
     this.scope = !!options.scope  ? options.scope : [];
     this.tokenType = options.tokenType || '';

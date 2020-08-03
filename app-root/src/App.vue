@@ -6,10 +6,10 @@
       </Header>
       <Divider class="m-0"/>
       <iContent class="root-container">
-        <keep-alive :include="aliveRoutes">
+        <keep-alive :include="aliveRoutes"> <!-- -->
           <router-view/>
         </keep-alive>
-        <SubApp></SubApp>
+<!--        <SubApp></SubApp>-->
       </iContent>
     </Layout>
   </div>
@@ -33,6 +33,7 @@ export default Vue.extend({
   created() {
     this.isLogin = this.$COMMON.AuthService.checkLogin();
     this.aliveRoutes = this.$store.getters[GET_ALIVE_ROUTE]();
+    console.log(this.aliveRoutes);
     const isLogin = IsLoginService.login$.subscribe((value: boolean) => {
       this.isLogin = value;
     });

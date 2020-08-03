@@ -1,11 +1,11 @@
 export class ColumnAction {
     public name: string;
     public text: string;
-    public callBack: Function;
+    public callBack: () => void;
     constructor(options: {
         name: string,
         text: string,
-        callBack: Function,
+        callBack: () => {},
     }) {
         this.name = options.name || '',
         this.text = options.text || '',

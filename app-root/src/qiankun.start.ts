@@ -31,7 +31,7 @@ function activeRule(path: string) {
     };
 }
 function dealMenuInfo(subApps: SysAppInfo[]) {
-    const subApps_ = subApps.map((val) => {
+    const subApp  = subApps.map((val) => {
         return {
             name: val.appId,
             entry: val.appUrl,
@@ -39,7 +39,7 @@ function dealMenuInfo(subApps: SysAppInfo[]) {
             activeRule: activeRule(val.appActiveRule),
         };
     });
-    return subApps_;
+    return subApp;
 }
 export function startQiankun(COMMON: any, apps: SysAppInfo[], path?: string) {
     if (!apps || !apps.length) {
@@ -51,14 +51,9 @@ export function startQiankun(COMMON: any, apps: SysAppInfo[], path?: string) {
     * */
     registerMicroApps(subApps, lifecycle);
     /*
-    * 全局状态
-    * */
-    const actions = initGlobalState(COMMON.globalStateService.initData(apps));
-    COMMON.globalStateService.setAction(actions);
-    /*
     * 注册root观察者
     * */
-    globalStateListenerService.init(COMMON);
+    globalStateListenerService.init(COMMON, apps);
     // actions.setGlobalState({app: "auth", path: "/auth"});
     // actions.offGlobalStateChange();
 

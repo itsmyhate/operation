@@ -2,9 +2,8 @@ import {cacheKeyEnum} from '@/constants/enums/cache-key.enum';
 import {SysAppInfo} from '@/entity/domain/SysAppInfo';
 import {SysMenuInfo} from '@/entity/domain/SysMenuInfo';
 
-
-function setMenusInfo(menus: SysAppInfo[], rootMenus?: SysMenuInfo[]) {
-    localStorage.setItem(cacheKeyEnum.menu, JSON.stringify(menus));
+function setMenusInfo(apps: SysAppInfo[], rootMenus?: SysMenuInfo[]) {
+    localStorage.setItem(cacheKeyEnum.apps, JSON.stringify(apps));
     if (!!rootMenus) {
         localStorage.setItem(cacheKeyEnum.rootMenu, JSON.stringify(rootMenus));
     }
@@ -17,7 +16,7 @@ function getRootMenusInfo(): SysMenuInfo[] {
     return [];
 }
 function getMenusInfo(appName?: string): SysMenuInfo[] | SysAppInfo[] {
-    const appStr = localStorage.getItem(cacheKeyEnum.menu);
+    const appStr = localStorage.getItem(cacheKeyEnum.apps);
     if (!!appStr) {
         const apps: SysAppInfo[] = JSON.parse(appStr);
         console.log(appName, apps);
@@ -29,7 +28,7 @@ function getMenusInfo(appName?: string): SysMenuInfo[] | SysAppInfo[] {
                     return val;
                 }
             });
-            if(app) {
+            if ( app ) {
                 return app.menuList || [];
             }
         }

@@ -14,7 +14,7 @@
                 </Breadcrumb>
             </div>-->
             <keep-alive :include="aliveRoutes">
-                <router-view class="root-main m-2"/>
+                <router-view class="root-main"/>
             </keep-alive>
         </iContent>
     </Layout>
@@ -29,7 +29,7 @@ import Vue from 'vue';
 export default Vue.extend({
     name: 'Main',
     components: {LeftMenu},
-    data() {
+    data(): any {
         return {
             menus: [],
             crumbs: [],

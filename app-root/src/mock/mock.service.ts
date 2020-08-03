@@ -1,5 +1,5 @@
-// @ts-ignore
 import { EnableTypeEnum } from '@/constants/enums/enable-type.enum';
+// @ts-ignore
 import Mock from 'mockjs';
 
 const MockService = {

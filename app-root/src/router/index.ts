@@ -15,10 +15,10 @@ export const routes: RouteConfig[] = [
         component: () => import(/* webpackChunkName: "Root" */ '@/views/main/Main.vue'),
         // meta: {keepAlive: true},
         children: [
-            // ...subAppRouting,
             ...workbenchRouting,
         ]
     },
+    ...subAppRouting,
     ...loginRouting,
 ];
 
@@ -37,6 +37,7 @@ router.beforeEach((to, from, next) => {
 export default router;
 
 const originalPush = VueRouter.prototype.push;
+// tslint:disable-next-line:typedef
 VueRouter.prototype.push = function push(location: RawLocation) {
     // @ts-ignore
     return originalPush.call(this, location).catch((err) => {console.log(err); });

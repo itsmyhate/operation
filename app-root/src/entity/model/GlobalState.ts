@@ -5,7 +5,7 @@ export class GlobalState {
     constructor(options: {
         action?: string,
         payload?: any,
-        callBack?: () => void,
+        callBack?: (...args: any[]) => void,
     }) {
         this.action = options.action || '',
         this.payload = options.payload || {},

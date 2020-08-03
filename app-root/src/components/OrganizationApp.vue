@@ -4,38 +4,72 @@
 </template>
 
 <script lang="ts">
-import {loadMicroApp} from 'qiankun';
+import {SysAppInfo} from '@/entity/domain/SysAppInfo';
+import {getMenusInfo} from '@/services/menus.service';
+import {initGlobalState, loadMicroApp} from 'qiankun';
 import {MicroApp} from 'qiankun/es/interfaces';
 import Vue from 'vue';
+import {globalStateListenerService} from "@/services/global-state-listener.service";
+import { GlobalState } from '@/entity/model/GlobalState';
+import {GET_APP_HISROUTE, GET_APP_INFO, SET_APP_HISROUTE_ACTION} from '@/store/app-his-route.module';
 
 export default Vue.extend({
-    name: 'organizationApp',
+    name: 'OrganizationApp',
     props: {
     },
-    data(): any {
+    data() {
         return {
+            appInfo: null,
             menu: null,
             subApp:  null,
         };
     },
     created() {
-        console.log('OrganizationApp init........');
+
+        /*const data = this.$store.getters[GET_APP_INFO];
+        this.appInfo = {
+            name: data.appId,
+            entry: data.appUrl,
+            container: `#${data.appId}App`,
+        };*/
+        const apps: any[] = getMenusInfo() || [];
+        const data: SysAppInfo = apps.find((ap: any) => ap.appId === this.$COMMON.AppNameEnum.organization);
+        if(!data) {
+            this.$Message.error('未找到应用信息！')
+        }
+        this.appInfo = {
+            name: data.appId,
+            entry: data.appUrl,
+            container: `#${data.appId}App`,
+        };
+        console.log('OrganizationApp init........', this.appInfo);
     },
     mounted() {
         console.log('OrganizationApp  mounted.........');
         this.subApp = this.loadSubApp();
+    },
+    activated() {
+        console.log('organization activated.............', this.$route);
+        const hisRoute = this.$store.getters[GET_APP_HISROUTE](this.appInfo.name);
+        if (!!hisRoute) {
+            console.log('触发organization setHisRoute start.......', hisRoute);
+            this.$COMMON.globalStateService.dispatch(
+                this.appInfo.name,
+                new GlobalState({
+                    action: this.$COMMON.ActionsKeyEnum.setHisRoute, payload: hisRoute, callBack: () => {
+                        console.log('触发organization setHisRoute callback.......');
+                    }
+                })
+            );
+        }
     },
     beforeDestroy() {
         console.log('organization unmount.............');
         this.subApp.unmount();
     },
     methods: {
-        loadSubApp(): MicroApp {
-            return loadMicroApp({
-                name: 'organization',
-                entry: '//localhost:4202/index.html',
-                container: `#organizationApp`
-            });
+        loadSubApp() {
+            return loadMicroApp(this.appInfo);
         }
     }
 });

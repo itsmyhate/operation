@@ -4,7 +4,6 @@ export const ALIVE_ROUTE_ROOT = 'root';
 export const SET_ALIVE_ROUTE = 'setAliveRoot';
 export const GET_ALIVE_ROUTE = 'getAliveRoot';
 
-
 const routeKeepAlive = {
     namespace: true,
     state: {

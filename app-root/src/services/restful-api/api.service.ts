@@ -14,16 +14,15 @@ const ApiService = {
     init() {
         const auth = Vue.prototype.$COMMON.AuthService;
         Vue.use(VueAxios, axios);
-        if (process.env.VUE_APP_ENABLE_MOCK != EnableTypeEnum.YES.code) {
+        if (process.env.VUE_APP_ENABLE_MOCK !== EnableTypeEnum.YES.code) {
             Vue.axios.defaults.baseURL = process.env.VUE_APP_BASE_URL;
         }
         const headers = AuthService.createBasicHeaders();
-        Object.keys(headers).forEach(function(key) {
+        Object.keys(headers).forEach( function(key) {
             Vue.axios.defaults.headers.common[key] = headers[key];
         });
 
-        Vue.axios.interceptors.request.use(
-            function(config) {
+        Vue.axios.interceptors.request.use( function(config) {
                 if (AuthService.verificationToken(config)) {
                     return Promise.resolve(config);
                 } else {

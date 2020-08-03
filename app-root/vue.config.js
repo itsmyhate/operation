@@ -77,17 +77,18 @@ module.exports = {
         // 开启 gzip 压缩
         // 需要 npm i -D compression-webpack-plugin
         const plugins = [];
-        if (process.env.NODE_ENV === 'production') {
-            plugins.push(
-                new CompressionPlugin({
-                    filename: "[path].gz[query]",
-                    algorithm: "gzip",
-                    test: /\.(js|css)$/,
-                    threshold: 10240,
-                    minRatio: 0.8
-                })
-            );
-        }
+        /*if (process.env.NODE_ENV === 'production') {
+
+        }*/
+        plugins.push(
+            new CompressionPlugin({
+                filename: "[path].gz[query]",
+                algorithm: "gzip",
+                test: /\.(js|css)$/,
+                threshold: 10240,
+                minRatio: 0.8
+            })
+        );
         config.plugins = [...config.plugins, ...plugins];
     },
 }

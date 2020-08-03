@@ -17,10 +17,12 @@ import {EnableTypeEnum} from '@/constants/enums/enable-type.enum';
 import {SysAppInfo} from '@/entity/domain/SysAppInfo';
 import {RestfulResponse} from '@/entity/model/RestfulResponse';
 import {startQiankun} from '@/qiankun.start';
+import {globalStateListenerService} from '@/services/global-state-listener.service';
 import {getMenusInfo, setMenusInfo} from '@/services/menus.service';
 import {SubAppService} from '@/services/notice/sub-app.service';
 import ApiService from '@/services/restful-api/api.service';
-import {GET_APP_HISROUTE} from '@/store/app-his-route.module';
+import {GET_APP_HISROUTE, SET_APP_INFO} from '@/store/app-his-route.module';
+import {initGlobalState} from 'qiankun';
 import Vue from 'vue';
 
 export default Vue.extend({
@@ -37,7 +39,7 @@ export default Vue.extend({
     methods: {
         goSubApp(data: SysAppInfo) {
             SubAppService.update(data.appName);
-            const redirectUrl = this.$store.getters[GET_APP_HISROUTE](data.appId);
+            this.$store.commit(SET_APP_INFO, data);
             this.$router.push({path: `${data.appActiveRule}`});
         },
         initAppList() {
@@ -45,7 +47,12 @@ export default Vue.extend({
                 if (res.code === EnableTypeEnum.YES.code) {
                     this.data = res.data;
                     setMenusInfo(this.data);
-                    startQiankun(this.$COMMON, this.data);
+
+                    /*
+                    * 注册root观察者
+                    * */
+                    globalStateListenerService.init(this.$COMMON, this.data);
+                    // startQiankun(this.$COMMON, this.data);
                 } else {
                     this.$Message.error(res.msg);
                 }

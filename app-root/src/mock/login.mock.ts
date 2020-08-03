@@ -1,5 +1,5 @@
-// @ts-ignore
 import {SysAppInfo} from '@/entity/domain/SysAppInfo';
+// @ts-ignore
 import Mock from 'mockjs';
 import {SysMenuInfo} from '../entity/domain/SysMenuInfo';
 

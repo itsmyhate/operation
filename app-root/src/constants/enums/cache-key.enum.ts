@@ -1,6 +1,6 @@
 export enum cacheKeyEnum {
     token = 'TOKEN',
     user= 'USER',
-    menu = 'MENU',
+    apps = 'APPS',
     rootMenu = 'ROOT_MENU',
 }

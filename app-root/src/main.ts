@@ -2,6 +2,7 @@ import '@/assets/css/bootstrap.min.css';
 import '@/assets/css/common.scss';
 import MockService from '@/mock/mock.service';
 import {startQiankun} from '@/qiankun.start';
+import {globalStateListenerService} from '@/services/global-state-listener.service';
 import {getMenusInfo} from '@/services/menus.service';
 import ApiService from '@/services/restful-api/api.service';
 import RouteTopologyService from '@/services/route-topology.service';
@@ -12,19 +13,15 @@ import 'app-constants-css/dist/css/index.css';
 import {COMMON} from 'app-constants-js';
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import 'zone.js';
 import {SET_ALIVE_ROUTE} from '../../app-organization/src/store/route-keep-alive.module';
 import App from './App.vue';
 import './registerServiceWorker';
 import router from './router';
 import {store} from './store';
-import '@/assets/css/common.scss'
-import 'zone.js'
 
 Vue.prototype.$COMMON = COMMON;
 Vue.config.productionTip = false;
-
-
-
 Vue.use(VueRouter);
 Vue.use(API, {
   locale,
@@ -59,6 +56,7 @@ function initRoot() {
 
   const subApps: any = getMenusInfo();
   if (!!subApps && !!subApps.length) {
-    startQiankun(vue.$COMMON, subApps);
+    globalStateListenerService.init(vue.$COMMON, subApps);
+    // startQiankun(vue.$COMMON, subApps);
   }
 }

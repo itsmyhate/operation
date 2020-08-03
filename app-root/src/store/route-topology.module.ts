@@ -9,8 +9,6 @@ export const SET_INITED = 'setInited';
 export const SET_TREE_ROUTES = 'setTreeRoutes';
 export const SET_HORIZONTAL_ROUTES = 'setHorizontalRoutes';
 /* actions */
-
-
 export const state = {
   inited: false,
   treeRoutes: [],
