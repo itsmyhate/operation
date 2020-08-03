@@ -13,7 +13,12 @@ export class COMMON {
     * 公共枚举
     * */
     ActionsKeyEnum: any;
-    AppNameEnum: any;
+    AppNameEnum: {
+        root: string;
+        test: string;
+        organization : string;
+        finAcc : string;
+    };
     DictionaryEnum: any;
     /*
    * 公共服务

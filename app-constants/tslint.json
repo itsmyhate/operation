@@ -1,5 +1,7 @@
 {
-  "defaultSeverity": "warning",
+  "rulesDirectory": [
+    //    "node_modules/codelyzer"
+  ],
   "extends": ["tslint:recommended"],
   "linterOptions": {
     "exclude": ["node_modules/**"]
@@ -81,7 +83,7 @@
       "as-needed"
     ],
     "quotemark": [
-      true,
+      false,
       "single"
     ],
     "semicolon": {
@@ -99,7 +101,7 @@
       }
     },
     "typedef": [
-      true,
+      false,
       "call-signature"
     ],
     "typedef-whitespace": {
@@ -148,6 +150,13 @@
     "template-banana-in-box": true,
     "template-no-negated-async": true,
     "use-lifecycle-interface": true,
-    "use-pipe-transform-interface": true
+    "use-pipe-transform-interface": true,
+    "trailing-comma": false,
+    "object-literal-sort-keys": false,
+    "interface-name": false,
+    "only-arrow-functions": false,
+    "ordered-imports": false,
+    "no-shadowed-variable": false,
+    "no-consecutive-blank-lines": false
   }
 }

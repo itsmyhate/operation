@@ -35,6 +35,10 @@ export function destoryActions() {
 
 export const globalStateService = {
 
+    /*
+    * 初始化所有微应用状态
+    * 只在主应用加载时调用一次
+    * */
     initData(apps: any[]): Record<string, GlobalState | string> {
         apps = apps || [];
         let record: Record<string, GlobalState |string> = {};
@@ -45,10 +49,15 @@ export const globalStateService = {
             record[AppNameEnum.root] = new GlobalState({});
             record[ActionsKeyEnum.activeApp] = '';
         } else {
-            console.warn('not  subapps.......');
+            console.warn(' subapps is empty .......');
         }
         return record;
     },
+
+    /*
+    * 设置全局状态对象 监听/触发方法的映射
+    * 每个微应用mount时设置一次
+    * */
     setAction(props: any) {
         globalStateAction.setActions(props);
     },
