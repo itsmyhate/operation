@@ -35,7 +35,7 @@ export default Vue.extend({
         const apps: any[] = getMenusInfo() || [];
         const data: SysAppInfo = apps.find((ap: any) => ap.appId === this.$COMMON.AppNameEnum.organization);
         if(!data) {
-            this.$Message.error('未找到应用信息！')
+            this.$message.error('未找到应用信息！')
         }
         this.appInfo = {
             name: data.appId,

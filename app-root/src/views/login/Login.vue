@@ -1,14 +1,16 @@
 <template>
     <div class="d-flex justify-content-center text-center">
-        <div class="w-25">
-            <iInput class="m-3" type="text" placeholder="请输入用户名">
-                <Icon type="ios-person-outline" slot="prepend"></Icon>
-            </iInput>
-            <iInput class="m-3" type="password" placeholder="请输入密码">
-                <Icon type="ios-lock-outline" slot="prepend"></Icon>
-            </iInput>
-            <iButton class="m-3" type="primary" @click="login">登录</iButton>
-        </div>
+        <a-form :form="loginForm" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }" @submit="handleSubmit">
+            <a-form-item label="用户名">
+                <a-input v-decorator="form.username" placeholder="用户名/手机号"/>
+            </a-form-item>
+            <a-form-item label="密码">
+                <a-input v-decorator="form.password" placeholder="请输入密码"/>
+            </a-form-item>
+            <a-form-item :wrapper-col="{ span: 12, offset: 5 }">
+                <a-button type="primary" html-type="submit">登录</a-button>
+            </a-form-item>
+        </a-form>
     </div>
 </template>
 
@@ -28,7 +30,11 @@ export default Vue.extend({
     name: 'Login',
     data(): any {
         return {
-            form: {},
+            loginForm: this.$form.createForm(this, {name: 'loginForm'}),
+            form: {
+                username: ['username', { rules: [{ required: true, message: 'Please input your username!' }] }],
+                password: ['password', { rules: [{ required: true, message: 'Please input your password!' }] }]
+            }
         };
     },
     created() {
@@ -36,16 +42,16 @@ export default Vue.extend({
     methods: {
         handleSubmit(e: any) {
             e.preventDefault();
-            this.form.validateFields((err: any, values: any) => {
+            this.loginForm.validateFields((err: any, values: any) => {
                 if (err) {
                     console.log('valid faile:', values);
                 } else {
-                    this.login();
+                    this.login(values);
                 }
             });
 
         },
-        login() {
+        login(values: any) {
             const data = {
                 user: {
                     username: 'username',
@@ -76,7 +82,7 @@ export default Vue.extend({
                     IsLoginService.update(true);
                     this.$router.push({path: '/root/app-collect'});
                 } else {
-                    this.$Message.error(response.msg);
+                    this.$message.error(response.msg);
                 }
             });*/
         }

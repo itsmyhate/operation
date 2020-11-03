@@ -1,13 +1,13 @@
 <template>
     <div id="tttt1">
         <h3>test1</h3>
-        <iInput v-model="username" class="m-3" type="text" placeholder="请输入用户名">
-            <Icon type="ios-person-outline" slot="prepend"></Icon>
-        </iInput>
-        <iInput v-model="password" class="m-3" type="password" placeholder="请输入密码">
-            <Icon type="ios-lock-outline" slot="prepend"></Icon>
-        </iInput>
-        <iButton @click="consoleForm">console</iButton>
+        <a-input v-model="username" class="m-3" type="text" placeholder="请输入用户名">
+            <a-icon type="ios-person-outline" slot="prepend"></a-icon>
+        </a-input>
+        <a-input v-model="password" class="m-3" type="password" placeholder="请输入密码">
+            <a-icon type="ios-lock-outline" slot="prepend"></a-icon>
+        </a-input>
+        <a-button @click="consoleForm">console</a-button>
     </div>
 </template>
 

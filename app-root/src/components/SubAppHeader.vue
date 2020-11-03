@@ -1,8 +1,8 @@
 <template>
-    <Row class="w-100 d-flex justify-content-between align-items-center" type="flex" justify="center" >
+    <a-row class="w-100 d-flex justify-content-between align-items-center" type="flex" justify="center" >
         <div class="d-flex justify-content-start align-items-center w-25">
-            <Icon class="ivu-fs-large" type="logo-codepen"  :size="30" />
-            <span class="ml-2 text-nowrap ivu-fs-20">综合运营平台{{isRoot ? '' : appText}}</span>
+            <a-icon class="ivu-fs-large" type="logo-codepen"  :size="30" />
+            <span class="ml-2 text-nowrap font-weight-bold">综合运营平台{{isRoot ? '' : appText}}</span>
         </div>
         <div class="h-100 w-50" style="text-align: -webkit-center">
             <!--<iMenu v-if="isRoot" @on-select="menuClick" class="h-100 w-25" :mode="'horizontal'">
@@ -22,42 +22,42 @@
         <div class="h-25 d-flex justify-content-end align-items-center w-25">
             <div v-if="!isRoot" type="text" class=" mr-3 root-cursor-pointer " @click="() => isCollapse = !isCollapse">
                 更多
-                <Icon type="ios-arrow-down"></Icon>
+                <a-icon type="ios-arrow-down"></a-icon>
             </div>
-            <Icon v-if="!isRoot" class="mr-2 root-home-icon-df " @click="goBack()" type="md-home" />
+            <a-icon v-if="!isRoot" class="mr-2 root-home-icon-df " @click="goBack()" type="md-home" />
             <div v-else class="mr-3 user-select-none">
                 {{userInfo.deptId}}
             </div>
-            <Dropdown class="mr-3" @on-click="dropdownClick" trigger="click">
+            <a-dropdown-button  class="mr-3">
                 <div type="text" class="root-cursor-pointer">{{userInfo.username}}
-                    <Icon type="ios-arrow-down"></Icon>
+                    <a-icon type="ios-arrow-down"></a-icon>
                 </div>
-                <DropdownMenu slot="list">
-                    <DropdownItem :name="dropdown.updatePwd">修改密码</DropdownItem>
-                    <DropdownItem :name="dropdown.logout" >退出登录</DropdownItem>
-                </DropdownMenu>
-            </Dropdown>
+                <a-menu slot="overlay"  @click="dropdownClick">
+                    <a-menu-item :key="dropdown.updatePwd">修改密码</a-menu-item>
+                    <a-menu-item :key="dropdown.logout" >退出登录</a-menu-item>
+                </a-menu>
+            </a-dropdown-button>
         </div>
         <transition :name="'move-up'">
             <div class="root-collapse-df" v-show="isCollapse">
-                <Row class="w-100" type="flex" justify="center" >
+                <a-row class="w-100" type="flex" justify="center" >
                     <!-- not more than 6 -->
                     <template v-for="app in data">
-                        <iCol :span="4">
+                        <a-col :span="4">
                             <div >
                                 {{app.appName}}
                             </div>
                             <template v-if="app.menus && !!app.menus.length">
                                 <div v-for="menu in app.menus">
-                                    <iButton type="text" @click="() => {}">{{menu.menuName}}</iButton>
+                                    <a-button type="text" @click="() => {}">{{menu.menuName}}</a-button>
                                 </div>
                             </template >
-                        </iCol>
+                        </a-col>
                     </template>
-                </Row>
+                </a-row>
             </div>
         </transition>
-    </Row>
+    </a-row>
 </template>
 
 <script lang="ts">
@@ -104,8 +104,8 @@ export default Vue.extend({
         /*menuClick(name) {
             this.$router.push({path: `${name}`});
         },*/
-        dropdownClick(name: string) {
-            if (name === this.dropdown.logout) {
+        dropdownClick(e: any) {
+            if (e.key === this.dropdown.logout) {
                 IsLoginService.update(false);
                 this.$COMMON.AuthService.logout(); // 清楚缓存信息
                 this.appName = undefined;

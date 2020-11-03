@@ -1,17 +1,17 @@
 <template>
   <div id="root">
-    <Layout>
-      <Header v-if="isLogin" class="bg-primary ivu-color-white d-flex justify-content-center p-0" >
+    <a-layout>
+      <a-layout-header v-if="isLogin" class="bg-primary ivu-color-white d-flex justify-content-center p-0" >
         <SubAppHeader></SubAppHeader>
-      </Header>
-      <Divider class="m-0"/>
-      <iContent class="root-container">
+      </a-layout-header>
+      <a-divider class="m-0"/>
+      <a-layout-content class="root-container">
         <keep-alive :include="aliveRoutes"> <!-- -->
           <router-view/>
         </keep-alive>
 <!--        <SubApp></SubApp>-->
-      </iContent>
-    </Layout>
+      </a-layout-content>
+    </a-layout>
   </div>
 </template>
 <script lang="ts">

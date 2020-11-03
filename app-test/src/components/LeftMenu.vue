@@ -1,21 +1,21 @@
 <template>
-    <iMenu class="h-100" @on-select="menuClick" :openNames="openKeys" :activeName="selectedKeys" accordion>
+    <a-menu class="h-100" @click="menuClick" :openKeys="openKeys" :selectedKeys="selectedKeys">
         <template v-for="menu in menus" >
-            <iMenuItem  :name="menu.menuId" v-if="!menu.children || !menu.children.length">
+            <a-menu-item  :key="menu.menuId" v-if="!menu.children || !menu.children.length">
                 {{menu.menuName}}
-            </iMenuItem>
-            <Submenu :name="menu.menuId" v-else >
+            </a-menu-item>
+            <a-sub-menu :key="menu.menuId" v-else  @titleClick="menuClick">
                 <template slot="title">
                     {{menu.menuName}}
                 </template>
                 <template v-for="subM in menu.children">
-                    <iMenuItem :name="subM.menuId" >
+                    <a-menu-item :key="subM.menuId" >
                         {{subM.menuName}}
-                    </iMenuItem>
+                    </a-menu-item>
                 </template>
-            </Submenu>
+            </a-sub-menu>
         </template>
-    </iMenu>
+    </a-menu>
 </template>
 
 <script lang="ts">
@@ -30,7 +30,7 @@
         },
         data(): any {
             return {
-                selectedKeys: '',
+                selectedKeys: [],
                 openKeys: [],
             }
         },
@@ -42,9 +42,13 @@
         created() {
         },
         methods: {
-            menuClick(name: any) {
-                const menu = this.findMenu(name, this.menus);
-                this.$router.push({path: `${menu.menuUrl}`});
+            menuClick(e: any) {
+                const menu = this.findMenu(e.key, this.menus);
+                if(e.item) {
+                    this.$router.push({path: `${menu.menuUrl}`});
+                } else {
+                    this.openKeys = [e.key];
+                }
             },
             findMenu(name: string, menus: SysMenuInfo[]): SysMenuInfo {
                 let item;
@@ -72,7 +76,7 @@
                                 if (menu.menuUrl !== node.path) {
                                     this.openKeys.push(menu.menuId); // 打开所有父节点
                                 } else {
-                                    this.selectedKeys = menu.menuId; // 选中当前节点
+                                    this.selectedKeys = [menu.menuId]; // 选中当前节点
                                 }
                             });
                             break;

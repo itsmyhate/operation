@@ -6,10 +6,6 @@ import {globalStateListenerService} from '@/services/global-state-listener.servi
 import {getMenusInfo} from '@/services/menus.service';
 import ApiService from '@/services/restful-api/api.service';
 import RouteTopologyService from '@/services/route-topology.service';
-import API from 'app-component';
-// @ts-ignore
-import locale from 'app-component/dist/locale/zh-CN';
-import 'app-constants-css/dist/css/index.css';
 import {COMMON} from 'app-constants-js';
 import Vue from 'vue';
 import VueRouter from 'vue-router';
@@ -19,14 +15,13 @@ import App from './App.vue';
 import './registerServiceWorker';
 import router from './router';
 import {store} from './store';
+import Antd from 'ant-design-vue';
+import 'ant-design-vue/dist/antd.css';
 
+Vue.use(Antd);
 Vue.prototype.$COMMON = COMMON;
 Vue.config.productionTip = false;
 Vue.use(VueRouter);
-Vue.use(API, {
-  locale,
-  size: 'large',
-});
 if (process.env.NODE_ENV === 'development') {
   import('../../app-constants/src/index').then((constants) => {
     Vue.prototype.$COMMON = constants.COMMON;

@@ -1,21 +1,21 @@
 <template>
-    <iMenu class="w-100" @on-select="menuClick" :activeName="selectedKeys" :openNames="openKeys" accordion>
+    <a-menu class="w-100" @on-select="menuClick" :selectedKeys="selectedKeys" :openKeys="openKeys">
         <template v-for="menu in menus" >
-            <iMenuItem  :name="menu.menuId" v-if="!menu.children || !menu.children.length">
+            <a-menu-item  :key="menu.menuId" v-if="!menu.children || !menu.children.length">
                 {{menu.menuName }}
-            </iMenuItem>
-            <Submenu :name="menu.menuId" v-else >
+            </a-menu-item>
+            <a-sub-menu :key="menu.menuId" v-else >
                 <template slot="title">
                     {{menu.menuName}}
                 </template>
                 <template v-for="subM in menu.children">
-                    <iMenuItem :name="subM.menuId" >
+                    <a-menu-item :key="subM.menuId" >
                         {{subM.menuName}}
-                    </iMenuItem>
+                    </a-menu-item>
                 </template>
-            </Submenu>
+            </a-sub-menu>
         </template>
-    </iMenu>
+    </a-menu>
 </template>
 
 <script lang="ts">
