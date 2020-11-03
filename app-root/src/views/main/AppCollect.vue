@@ -1,13 +1,13 @@
 <template>
     <div class="d-flex">
-        <Row class="w-100 ml-2 mr-2">
-            <iCol span="6" v-for="item in data">
-                <Card class="m-3 root-card-df" :title="item.appName">
-                    <iButton @click="goSubApp(item)" type="dashed" size="small">Go to </iButton>
+        <a-row class="w-100 ml-2 mr-2">
+            <a-col span="6" v-for="item in data">
+                <a-card class="m-3 root-card-df" :title="item.appName">
+                    <a-button @click="goSubApp(item)" type="dashed" size="small">Go to </a-button>
                     <span class="ml-2">{{item.appDesc}}</span>
-                </Card>
-            </iCol>
-        </Row>
+                </a-card>
+            </a-col>
+        </a-row>
     </div>
 </template>
 
@@ -24,6 +24,8 @@ import ApiService from '@/services/restful-api/api.service';
 import {GET_APP_HISROUTE, SET_APP_INFO} from '@/store/app-his-route.module';
 import {initGlobalState} from 'qiankun';
 import Vue from 'vue';
+import {ResponseCodeEnum} from "@/constants/enums/response-code.enum";
+import {apps} from "@/mock/apps.mock";
 
 export default Vue.extend({
     name: 'AppCollect',
@@ -44,8 +46,10 @@ export default Vue.extend({
         },
         initAppList() {
             ApiService.general(appsApi.selectAppList, {}, null).then((res: RestfulResponse) => {
-                if (res.code === EnableTypeEnum.YES.code) {
-                    this.data = res.data;
+                if (true) {
+                // if (res.code === ResponseCodeEnum.SUCCESS.code) {
+                //     this.data = res.data;
+                    this.data = apps;
                     setMenusInfo(this.data);
 
                     /*
@@ -54,7 +58,7 @@ export default Vue.extend({
                     globalStateListenerService.init(this.$COMMON, this.data);
                     // startQiankun(this.$COMMON, this.data);
                 } else {
-                    this.$Message.error(res.msg);
+                    this.$message.error(res.msg);
                 }
             });
         }

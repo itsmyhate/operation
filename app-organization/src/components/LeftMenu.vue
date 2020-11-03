@@ -1,21 +1,21 @@
 <template>
-    <iMenu class="w-100 h-100" @on-select="menuClick"  :activeName="selectedKeys" :openNames="openKeys" accordion>
+    <a-menu class="w-100 h-100" :selectedKeys="selectedKeys" :openKeys="openKeys" mode="inline" @click="menuClick"><!--@on-select="menuClick" -->
         <template v-for="menu in menus" >
-            <iMenuItem  :name="menu.menuId" v-if="!menu.children || !menu.children.length">
+            <a-menu-item  :key="menu.menuId" v-if="!menu.children || !menu.children.length">
                 {{menu.menuName}}
-            </iMenuItem>
-            <Submenu :name="menu.menuId" v-else >
+            </a-menu-item>
+            <a-sub-menu :key="menu.menuId" v-else @titleClick="menuClick">
                 <template slot="title">
                     {{menu.menuName}}
                 </template>
                 <template v-for="subM in menu.children">
-                    <iMenuItem :name="subM.menuId" >
+                    <a-menu-item :key="subM.menuId">
                         {{subM.menuName}}
-                    </iMenuItem>
+                    </a-menu-item>
                 </template>
-            </Submenu>
+            </a-sub-menu>
         </template>
-    </iMenu>
+    </a-menu>
 </template>
 
 <script lang="ts">
@@ -29,7 +29,7 @@ export default Vue.extend({
     },
     data(): any {
         return {
-            selectedKeys: '',
+            selectedKeys: [],
             openKeys: [],
         };
     },
@@ -55,7 +55,7 @@ export default Vue.extend({
                             if (menu.menuUrl !== node.path) {
                                 this.openKeys.push(menu.menuId); // 打开所有父节点
                             } else {
-                                this.selectedKeys = menu.menuId; // 选中当前节点
+                                this.selectedKeys = [menu.menuId]; // 选中当前节点
                             }
                         });
                         break;
@@ -63,9 +63,13 @@ export default Vue.extend({
                 }
             }
         },
-        menuClick(name: any) {
-            const menu = this.findMenu(name, this.menus);
-            this.$router.push({path: `${menu.menuUrl}`});
+        menuClick(e: any) { /*{ item, key, keyPath, domEvent } || { key, domEvent}*/
+            const menu = this.findMenu(e.key, this.menus);
+            if(e.item) {
+                this.$router.push({path: `${menu.menuUrl}`});
+            } else {
+                this.openKeys = [e.key];
+            }
         },
         findMenu(name: any, menus: any) {
             let item;

@@ -11,8 +11,6 @@
   },
   "dependencies": {
     "animate.css": "^4.1.0",
-    "app-component": "^0.3.1",
-    "app-constants-css": "^0.0.3",
     "app-constants-js": "^0.2.4",
     "axios": "^0.19.2",
     "axios-retry": "^3.1.8",
@@ -32,6 +30,7 @@
     "vue-class-component": "^7.2.5"
   },
   "devDependencies": {
+    "ant-design-vue": "^1.7.1",
     "@vue/cli-plugin-babel": "~4.4.0",
     "@vue/cli-plugin-pwa": "~4.4.0",
     "@vue/cli-plugin-router": "~4.4.0",

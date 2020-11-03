@@ -1,23 +1,23 @@
 <template>
-    <Layout class="h-100">
-        <Sider class="root-left-menu scroll-content-dhcc" >
+    <a-layout class="h-100">
+        <a-layout-sider class="root-left-menu scroll-content-dhcc" >
             <LeftMenu :menus="menus"></LeftMenu>
-        </Sider>
-        <iContent class="root-content">
+        </a-layout-sider>
+        <a-layout-content class="root-content">
             <div class="bg-white">
-                <Breadcrumb>
-                    <Breadcrumb-item v-for="crumb in crumbs"
+                <a-breadcrumb>
+                    <a-breadcrumb-item v-for="crumb in crumbs"
                                      :key="crumb.key"
                                      :to="crumb.path"
                                      :active="crumb.key === activeKey"
-                    >{{crumb.title}}</Breadcrumb-item>
-                </Breadcrumb>
+                    >{{crumb.title}}</a-breadcrumb-item>
+                </a-breadcrumb>
             </div>
             <keep-alive :include="aliveRoutes">
                 <router-view class="m-2 root-main"/>
             </keep-alive>
-        </iContent>
-    </Layout>
+        </a-layout-content>
+    </a-layout>
 </template>
 
 <script lang="ts">

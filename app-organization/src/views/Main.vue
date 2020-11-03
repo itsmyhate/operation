@@ -1,26 +1,26 @@
 <template>
-    <Layout class="h-100">
-        <Sider class="root-left-menu scroll-content-dhcc">
+    <a-layout class="h-100">
+        <a-layout-sider class="root-left-menu scroll-content-dhcc">
             <LeftMenu :menus="menus"></LeftMenu>
-        </Sider>
-        <iContent class="root-content">
+        </a-layout-sider>
+        <a-layout-content class="root-content">
             <div class="bg-white">
-                <Breadcrumb class="ivu-row-flex p-2">
+                <a-breadcrumb class="ivu-row-flex p-2">
 <!--                    :to="crumb.path"-->
-                    <Breadcrumb-item class="ivu-row-flex" v-for="crumb in crumbs"
+                    <a-breadcrumb-item class="ivu-row-flex" v-for="crumb in crumbs"
                                      :key="crumb.key"
                                      :active="crumb.key === activeKey">
                         <span slot="separator"></span>
                         <span class="root-cursor-pointer" @click="clickCrumb(crumb)">{{crumb.title}}</span>
-                        <Icon @click="closeCrumb($event, crumb)" type="ios-close" class="ivu-fs-large root-cursor-pointer"/>
-                    </Breadcrumb-item>
-                </Breadcrumb>
+                        <a-icon @click="closeCrumb($event, crumb)" type="ios-close" class="ivu-fs-large root-cursor-pointer"/>
+                    </a-breadcrumb-item>
+                </a-breadcrumb>
             </div>
             <keep-alive :include="aliveRoutes">
                 <router-view  class="m-2 root-main" />
             </keep-alive>
-        </iContent>
-    </Layout>
+        </a-layout-content>
+    </a-layout>
 </template>
 
 <script lang="ts">

@@ -7,15 +7,15 @@ import 'popper.js';
 import './public-path';
 import {GlobalState} from "@/entity/model/GlobalState";
 import {COMMON} from 'app-constants-js';
-import API from 'app-component';
 import {SET_ALIVE_ROUTE} from "@/store/route-keep-alive.module";
 import RouteTopologyService from "@/services/route-topology.service";
+import 'ant-design-vue/dist/antd.css';
+import Antd from 'ant-design-vue';
 
 Vue.config.productionTip = false;
 let vue: any = null;
-Vue.use(API);
 Vue.prototype.$COMMON = COMMON;
-
+Vue.use(Antd);
 // @ts-ignore
 if (!window.__POWERED_BY_QIANKUN__) {
   initApp().then(() => {

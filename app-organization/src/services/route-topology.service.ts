@@ -80,7 +80,7 @@ const RouteTopologyService = {
       }
     }
   },
-  recursionSerarchCurrentMenuTreeByPath(menus: SysMenuInfo[], path: string): SysMenuInfo[] | undefined {
+  recursionSerarchCurrentMenuTreeByPath(menus: SysMenuInfo[], path: string): SysMenuInfo[] | null {
     for (const i in menus) {
       if (menus[i].menuUrl === path) {
         return [JSON.parse(JSON.stringify(menus[i]))];
@@ -92,6 +92,7 @@ const RouteTopologyService = {
         }
       }
     }
+    return null;
   },
 };
 export default RouteTopologyService;

@@ -11,7 +11,6 @@ import '@/assets/css/bootstrap.min.css';
 import 'ant-design-vue/dist/antd.css';
 import '@/assets/css/common.scss';
 
-import API from 'app-component';
 import {GlobalState} from "@/entity/model/GlobalState";
 import RouteTopologyService from "@/services/route-topology.service";
 import {SET_ALIVE_ROUTE} from "@/store/route-keep-alive.module";
@@ -22,7 +21,7 @@ Vue.prototype.$COMMON = COMMON;
 Vue.config.productionTip = false;
 
 let vue: Vue;
-Vue.use(API);
+// Vue.use(Antd);
 
 async function initApp(props?: any) {
   if (process.env.NODE_ENV === 'development') {

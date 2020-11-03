@@ -5,12 +5,12 @@
                     @click="click">+ 新增</button>
         </div>
         <div>
-            <Modal v-model="visible" :title="'title'" @cancel="cancel" :show-footer="true">
+            <a-modal v-model="visible" :title="'title'" @cancel="cancel" :show-footer="true">
                 <template><h1>Content........</h1></template>
                 <template><h1>Content........</h1></template>
                 <template><h1>Content........</h1></template>
 <!--                <template v-slot:footer><h1>footer</h1></template>-->
-            </Modal>
+            </a-modal>
         </div>
     </div>
 </template>

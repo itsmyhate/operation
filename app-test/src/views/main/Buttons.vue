@@ -2,24 +2,24 @@
     <div class="d-flex flex-column h-100 justify-content-center">
         <div class="d-flex justify-content-around mr-5">
             <h5>big: </h5>
-            <iButton >default</iButton>
-            <iButton type="primary" :size="'large'">primary</iButton>
-            <iButton type="dashed" :size="'large'">dashed</iButton>
-            <iButton type="text" :size="'large'">text</iButton>
-            <iButton type="info" :size="'large'">info</iButton>
-            <iButton type="success" :size="'large'">success</iButton>
-            <iButton type="warning" :size="'large'">warning</iButton>
-            <iButton type="error" :size="'large'">error</iButton>
+            <a-button >default</a-button>
+            <a-button type="primary" :size="'large'">primary</a-button>
+            <a-button type="dashed" :size="'large'">dashed</a-button>
+            <a-button type="text" :size="'large'">text</a-button>
+            <a-button type="info" :size="'large'">info</a-button>
+            <a-button type="success" :size="'large'">success</a-button>
+            <a-button type="warning" :size="'large'">warning</a-button>
+            <a-button type="error" :size="'large'">error</a-button>
         </div>
         <div class="d-flex justify-content-around mr-5 mt-5">
             <h5>Small: </h5>
-            <iButton type="primary" :size="'small'">primary</iButton>
-            <iButton type="dashed" :size="'small'">dashed</iButton>
-            <iButton type="text" :size="'small'">text</iButton>
-            <iButton type="info" :size="'small'">info</iButton>
-            <iButton type="success" :size="'small'">success</iButton>
-            <iButton type="warning" :size="'small'">warning</iButton>
-            <iButton type="error" :size="'small'">error</iButton>
+            <a-button type="primary" :size="'small'">primary</a-button>
+            <a-button type="dashed" :size="'small'">dashed</a-button>
+            <a-button type="text" :size="'small'">text</a-button>
+            <a-button type="info" :size="'small'">info</a-button>
+            <a-button type="success" :size="'small'">success</a-button>
+            <a-button type="warning" :size="'small'">warning</a-button>
+            <a-button type="error" :size="'small'">error</a-button>
         </div>
     </div>
 </template>

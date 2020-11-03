@@ -1,9 +1,9 @@
 <template>
-    <Layout class="h-100">
+    <a-layout class="h-100">
         <!--<Sider class="root-left-menu scroll-content-dhcc">
             <LeftMenu :menus="menus"></LeftMenu>
         </Sider>-->
-        <iContent class="root-content">
+        <a-layout-content class="root-content">
             <!--<div class="bg-white">
                 <Breadcrumb>
                     <Breadcrumb-item v-for="crumb in crumbs"
@@ -16,8 +16,8 @@
             <keep-alive :include="aliveRoutes">
                 <router-view class="root-main"/>
             </keep-alive>
-        </iContent>
-    </Layout>
+        </a-layout-content>
+    </a-layout>
 </template>
 
 <script lang="ts">
