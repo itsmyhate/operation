@@ -27,7 +27,8 @@
     "vue-rx": "^6.2.0",
     "vuex": "^3.4.0",
     "zone.js": "^0.10.2",
-    "vue-class-component": "^7.2.5"
+    "vue-class-component": "^7.2.5",
+    "ts-md5": "^1.2.7"
   },
   "devDependencies": {
     "ant-design-vue": "^1.7.1",

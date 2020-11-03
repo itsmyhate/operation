@@ -29,7 +29,7 @@
                 {{userInfo.deptId}}
             </div>
             <a-dropdown-button  class="mr-3">
-                <div type="text" class="root-cursor-pointer">{{userInfo.username}}
+                <div type="text" class="root-cursor-pointer">{{userInfo.userName}}
                     <a-icon type="ios-arrow-down"></a-icon>
                 </div>
                 <a-menu slot="overlay"  @click="dropdownClick">

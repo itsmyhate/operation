@@ -4,7 +4,7 @@ import MockService from '@/mock/mock.service';
 import {startQiankun} from '@/qiankun.start';
 import {globalStateListenerService} from '@/services/global-state-listener.service';
 import {getMenusInfo} from '@/services/menus.service';
-import ApiService from '@/services/restful-api/api.service';
+import ClientService from '@/services/restful-client/client.service';
 import RouteTopologyService from '@/services/route-topology.service';
 import {COMMON} from 'app-constants-js';
 import Vue from 'vue';
@@ -36,7 +36,7 @@ if (process.env.NODE_ENV === 'development') {
 * */
 function initRoot() {
 
-  ApiService.init();
+  ClientService.init();
   MockService.init();
   RouteTopologyService.checkAndInit();
   /*

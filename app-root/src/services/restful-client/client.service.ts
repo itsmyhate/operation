@@ -10,7 +10,7 @@ import AuthService from './auth.service';
 interface Query {
     [key: string]: any;
 }
-const ApiService = {
+const ClientService = {
     init() {
         const auth = Vue.prototype.$COMMON.AuthService;
         Vue.use(VueAxios, axios);
@@ -125,20 +125,20 @@ const ApiService = {
                 console.log(error.response.headers);
                 return {
                     code: '1000',
-                    msg: '响应异常，稍后请重试或联系管理员'
+                    message: '响应异常，稍后请重试或联系管理员'
                 };
             } else if (error.request) {
                 console.log(error.request);
                 return {
                     code: '1000',
-                    msg: '请求异常，稍后请重试或联系管理员'
+                    message: '请求异常，稍后请重试或联系管理员'
                 };
             } else {
                 // Something happened in setting up the request that triggered an Error
                 console.log('Error', error.message);
                 return {
                     code: '1000',
-                    msg: '未知异常，稍后请重试或联系管理员'
+                    message: '未知异常，稍后请重试或联系管理员'
                 };
             }
             console.log(error.config);
@@ -173,4 +173,4 @@ const ApiService = {
     }
 };
 
-export default ApiService;
+export default ClientService;

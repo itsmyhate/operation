@@ -15,16 +15,18 @@
 </template>
 
 <script lang="ts">
-import authorizationApi from '@/constants/api/core/authorization.api';
 import {EnableTypeEnum} from '@/constants/enums/enable-type.enum';
 import {SysMenuInfo} from '@/entity/domain/SysMenuInfo';
 import { RestfulResponse } from '@/entity/model/RestfulResponse';
 import {startQiankun} from '@/qiankun.start';
 import {  setMenusInfo } from '@/services/menus.service';
 import {IsLoginService} from '@/services/notice/is-login.service';
-import ApiService from '@/services/restful-api/api.service';
-import AuthService from '@/services/restful-api/auth.service';
+import ClientService from '@/services/restful-client/client.service';
 import Vue from 'vue';
+import {serviceApi} from "@/constants/api/service.api";
+import {ResponseCodeEnum} from "@/constants/enums/response-code.enum";
+import {LoginTypeEnum} from "@/constants/enums/login-type.enum";
+import {Md5} from "ts-md5";
 
 export default Vue.extend({
     name: 'Login',
@@ -52,7 +54,7 @@ export default Vue.extend({
 
         },
         login(values: any) {
-            const data = {
+            /*const data = {
                 user: {
                     username: 'username',
                     deptId: 'XXX部门',
@@ -71,20 +73,22 @@ export default Vue.extend({
             this.$COMMON.AuthService.login(data.user, data.token);
             setMenusInfo([], data.rootMenus);
             IsLoginService.update(true);
-            this.$router.push({path: '/root/app-collect'});
-            /*ApiService.post(authorizationApi.login.url ,{
-                username: 'username',
-                password: 'password'
-            }, {}, AuthService.createBasicHeaders()).then((response: RestfulResponse) => {
-                if(response.code === EnableTypeEnum.YES.code) {
-                    this.$COMMON.AuthService.login(response.data.user, response.data.token);
+            this.$router.push({path: '/root/app-collect'});*/
+            values.password = Md5.hashStr(values.password);
+            ClientService.general(serviceApi.systemApi.sysUserInfo.login ,{}, {
+                code: values.username,
+                pwd: values.password,
+                type: LoginTypeEnum.account_code.code
+            }).then((response: RestfulResponse) => {
+                if(response.code === ResponseCodeEnum.SUCCESS.code) {
+                    this.$COMMON.AuthService.login(response.data.sysUserInfo, response.data);
                     setMenusInfo([], response.data.rootMenus);
                     IsLoginService.update(true);
                     this.$router.push({path: '/root/app-collect'});
                 } else {
-                    this.$message.error(response.msg);
+                    this.$message.error(response.message);
                 }
-            });*/
+            });
         }
     },
 });

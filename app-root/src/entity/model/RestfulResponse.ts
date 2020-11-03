@@ -1,16 +1,16 @@
 export class RestfulResponse {
     public code: number;
-    public msg: string;
+    public message: string;
     public data: any;
     public meta: any;
     constructor(options: {
         code: number,
-        msg: string,
+        message: string,
         data: any,
         meta: any,
     }) {
         this.code = options.code || 0,
-        this.msg = options.msg || '',
+        this.message = options.message || '',
         this.data = options.data || {},
         this.meta = options.meta || {};
     }

@@ -80,7 +80,7 @@
     import {EnableTypeEnum} from '@/constants/enums/enable-type.enum';
     import Vue from 'vue';
     import {Divider, Table, Button, Select} from "ant-design-vue";
-    import ApiService from "@/services/restful-api/api.service";
+    import ClientService from "@/services/restful-api/api.service";
     import appsApi from "@/constants/api/apps.api";
     import AuthService from "@/services/auth.service";
     import {RestfulResponse} from "@/entity/model/RestfulResponse";

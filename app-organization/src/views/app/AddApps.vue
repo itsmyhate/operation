@@ -47,7 +47,7 @@
     import appsApi from '@/constants/api/apps.api';
     import {EnableTypeEnum} from '@/constants/enums/enable-type.enum';
     import {RestfulResponse} from '@/entity/model/RestfulResponse';
-    import ApiService from '@/services/restful-api/api.service';
+    import ClientService from '@/services/restful-api/api.service';
     import Vue from 'vue';
     import {AppBusiTypeEnum} from '@/constants/enums/app-busi-type.enum'
     import {Divider, Input, Radio, FormModel} from "ant-design-vue";

@@ -12,7 +12,6 @@
 </template>
 
 <script lang="ts">
-import appsApi from '@/constants/api/core/apps.api';
 import {EnableTypeEnum} from '@/constants/enums/enable-type.enum';
 import {SysAppInfo} from '@/entity/domain/SysAppInfo';
 import {RestfulResponse} from '@/entity/model/RestfulResponse';
@@ -20,12 +19,13 @@ import {startQiankun} from '@/qiankun.start';
 import {globalStateListenerService} from '@/services/global-state-listener.service';
 import {getMenusInfo, setMenusInfo} from '@/services/menus.service';
 import {SubAppService} from '@/services/notice/sub-app.service';
-import ApiService from '@/services/restful-api/api.service';
+import ClientService from '@/services/restful-client/client.service';
 import {GET_APP_HISROUTE, SET_APP_INFO} from '@/store/app-his-route.module';
 import {initGlobalState} from 'qiankun';
 import Vue from 'vue';
 import {ResponseCodeEnum} from "@/constants/enums/response-code.enum";
 import {apps} from "@/mock/apps.mock";
+import {serviceApi} from "@/constants/api/service.api";
 
 export default Vue.extend({
     name: 'AppCollect',
@@ -45,7 +45,7 @@ export default Vue.extend({
             this.$router.push({path: `${data.appActiveRule}`});
         },
         initAppList() {
-            ApiService.general(appsApi.selectAppList, {}, null).then((res: RestfulResponse) => {
+            ClientService.general(serviceApi.systemApi.sysAppInfo.selectAppAndMenuList, {}, null).then((res: RestfulResponse) => {
                 if (true) {
                 // if (res.code === ResponseCodeEnum.SUCCESS.code) {
                 //     this.data = res.data;
@@ -58,7 +58,7 @@ export default Vue.extend({
                     globalStateListenerService.init(this.$COMMON, this.data);
                     // startQiankun(this.$COMMON, this.data);
                 } else {
-                    this.$message.error(res.msg);
+                    this.$message.error(res.message);
                 }
             });
         }

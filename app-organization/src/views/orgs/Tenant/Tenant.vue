@@ -62,7 +62,7 @@
     import TenantShowComponent from "@/components/Tenant/TenantShowComponent.vue";
     import TenantDisabledComponent from "@/components/Tenant/TenantDisabledComponent.vue";
     import {drawEcharts, ceshi, renderTab} from "@/constants/component/Tenant/tenant-echarts";
-    import ApiService from "@/services/restful-api/api.service";
+    import ClientService from "@/services/restful-api/api.service";
     import tenantsApi from "@/constants/api/tenants.api";
     import AuthService from "@/services/auth.service";
     import {RestfulResponse} from "@/entity/model/RestfulResponse";

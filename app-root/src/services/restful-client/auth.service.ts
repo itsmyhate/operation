@@ -1,7 +1,7 @@
-import authorizationApi from '@/constants/api/core/authorization.api';
-import ApiService from '@/services/restful-api/api.service';
+import ClientService from '@/services/restful-client/client.service';
 import {AxiosRequestConfig} from 'axios';
 import Vue from 'vue';
+import {serviceApi} from "@/constants/api/service.api";
 
 const AuthService = {
     createBasicHeaders(): any {
@@ -46,7 +46,7 @@ const AuthService = {
           refresh_token: Vue.prototype.$COMMON.AuthService.getToken().refreshToken,
         });
         const headers = this.createBasicHeaders();
-        return ApiService.general(authorizationApi.refreshToken, {}, params, headers).then((response: any) => {
+        return ClientService.general(serviceApi.systemApi.sysUserInfo.refreshToken, {}, params, headers).then((response: any) => {
           if (response != null && response.access_token != null) {
               const res = Vue.prototype.$COMMON.AuthService.updateToken(response.access_token);
               return res;
