@@ -44,14 +44,14 @@
 </template>
 
 <script lang="ts">
-    import appsApi from '@/constants/api/apps.api';
-    import {EnableTypeEnum} from '@/constants/enums/enable-type.enum';
     import {RestfulResponse} from '@/entity/model/RestfulResponse';
-    import ClientService from '@/services/restful-api/api.service';
+    import ClientService from '@/services/restful-api/client.service';
     import Vue from 'vue';
     import {AppBusiTypeEnum} from '@/constants/enums/app-busi-type.enum'
     import {Divider, Input, Radio, FormModel} from "ant-design-vue";
     import {AppTypeEnum} from "@/constants/enums/app-type.enum";
+    import {serviceApi} from "@/constants/api/service.api";
+    import {ResponseCodeEnum} from "@/constants/enums/response-code.enum";
     Vue.use(Divider).use(Input).use(Radio).use(FormModel)
 
     export default Vue.extend({
@@ -103,8 +103,8 @@
             createApp() {
                 this.$refs.appForm.validate((valid: boolean) => {
                     if(valid) {
-                        ApiService.general(appsApi.addApp, {}, this.form).then((res: RestfulResponse) => {
-                            if(res.code === EnableTypeEnum.YES.code) {
+                        ClientService.general(serviceApi.systemApi.sysAppInfo.addApp, {}, this.form).then((res: RestfulResponse) => {
+                            if(res.code === ResponseCodeEnum.SUCCESS.code) {
                                 this.$message.success(res.msg);
                                 this.$router.push({path: '/main/app'});
                             } else {

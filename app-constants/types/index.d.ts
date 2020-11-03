@@ -12,14 +12,18 @@ export class COMMON {
     /*
     * 公共枚举
     * */
-    ActionsKeyEnum: any;
+    ActionsKeyEnum: {
+        activeApp: string;
+        setHisRoute: string;
+        getHisRoute: string;
+        getMenuInfo: string;
+    };
     AppNameEnum: {
         root: string;
         test: string;
         organization : string;
         finAcc : string;
     };
-    DictionaryEnum: any;
     /*
    * 公共服务
    * */

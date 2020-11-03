@@ -10,7 +10,6 @@ import {initGlobalState, loadMicroApp} from 'qiankun';
 import {MicroApp} from 'qiankun/es/interfaces';
 import Vue from 'vue';
 import {globalStateListenerService} from "@/services/global-state-listener.service";
-import { GlobalState } from '@/entity/model/GlobalState';
 import {GET_APP_HISROUTE, GET_APP_INFO, SET_APP_HISROUTE_ACTION} from '@/store/app-his-route.module';
 
 export default Vue.extend({
@@ -55,11 +54,11 @@ export default Vue.extend({
             console.log('触发organization setHisRoute start.......', hisRoute);
             this.$COMMON.globalStateService.dispatch(
                 this.appInfo.name,
-                new GlobalState({
+                {
                     action: this.$COMMON.ActionsKeyEnum.setHisRoute, payload: hisRoute, callBack: () => {
                         console.log('触发organization setHisRoute callback.......');
                     }
-                })
+                }
             );
         }
     },

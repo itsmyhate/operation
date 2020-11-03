@@ -3,7 +3,6 @@ import VueRouter, {RawLocation, RouteConfig} from 'vue-router';
 import {keepAliveRouting} from "@/router/keep-alive.routing";
 import {menuRouting} from "@/router/menu.routing";
 import {tableRouting} from "@/router/table.routing";
-import {GlobalState} from "@/entity/model/GlobalState";
 
 Vue.use(VueRouter);
 
@@ -52,10 +51,10 @@ router.beforeEach((to, from, next) => {
     console.log('test 触发 root setHisRoute', to.path);
     Vue.prototype.$COMMON.globalStateService.dispatch(
         Vue.prototype.$COMMON.AppNameEnum.root,
-        new GlobalState({
+        {
           action: Vue.prototype.$COMMON.ActionsKeyEnum.setHisRoute,
           payload: {test: to.path}, callBack: () => {}
-        })
+        }
     );
   }
   next();

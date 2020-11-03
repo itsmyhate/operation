@@ -3,16 +3,16 @@ import {AxiosRequestConfig} from 'axios';
 import Vue from 'vue';
 import {serviceApi} from "@/constants/api/service.api";
 
-const AuthService = {
-    createBasicHeaders(): any {
+export class AuthService {
+    protected createBasicHeaders(): any {
         return {
             headers: {
                 'Content-Type': 'application/json',
                 Accept: 'application/json'
             }
         };
-    },
-    createAuthHeaders(): any {
+    };
+    protected createAuthHeaders(): any {
         const token = Vue.prototype.$COMMON.AuthService.getToken().accessToken;
         return {
             headers: {
@@ -21,8 +21,8 @@ const AuthService = {
                 Accept: 'application/json'
             }
         };
-    },
-    createFileDownloadAuthorizationHeader() {
+    };
+    protected createFileDownloadAuthorizationHeader() {
         const token = Vue.prototype.$COMMON.AuthService.getToken().accessToken;
         return {
             headers: {
@@ -31,8 +31,8 @@ const AuthService = {
             },
             responseType: 'blob'
         };
-    },
-    jsonToFormData(params: any) {
+    }
+    protected jsonToFormData(params: any) {
         if (params != null) {
             const formData = new FormData();
             Object.keys(params).forEach((key) => {
@@ -40,8 +40,8 @@ const AuthService = {
             });
             return formData;
         }
-    },
-    refreshToken(): Promise<any> {
+    }
+    protected refreshToken(): Promise<any> {
         const params = this.jsonToFormData({
           refresh_token: Vue.prototype.$COMMON.AuthService.getToken().refreshToken,
         });
@@ -53,13 +53,11 @@ const AuthService = {
           }
           return false;
         });
-    },
-    verificationToken(config: AxiosRequestConfig) {
+    }
+    protected verificationToken(config: AxiosRequestConfig) {
         if (config.headers && config.headers.Authorization) {
             return Vue.prototype.$COMMON.AuthService.checkToken();
         }
         return true;
-    },
+    }
 };
-
-export default AuthService;

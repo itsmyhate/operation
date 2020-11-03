@@ -29,7 +29,6 @@
     import {GET_ALL_ALIVE_ROUTE, GET_ALIVE_ROUTE} from "@/store/route-keep-alive.module";
     import RouteTopologyService from "@/services/route-topology.service";
     import {SysMenuInfo} from "@/entity/domain/SysMenuInfo";
-    import {GlobalState} from "@/entity/model/GlobalState";
 
     export default Vue.extend({
         name: "Main",
@@ -52,14 +51,14 @@
         created() {
             this.aliveRoutes = this.$store.getters[GET_ALIVE_ROUTE]('Main');
             this.$COMMON.globalStateService.dispatch( this.$COMMON.AppNameEnum.root,
-                new GlobalState({
+                {
                     action: this.$COMMON.ActionsKeyEnum.getMenuInfo,
                     payload: this.$COMMON.AppNameEnum.organization,
                     callBack: (menus: SysMenuInfo[]) => {
                         this.menus = menus;
                         this.navPosition();
                     }
-                })
+                }
             );
         },
         methods: {

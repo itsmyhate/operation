@@ -80,10 +80,10 @@
     import {EnableTypeEnum} from '@/constants/enums/enable-type.enum';
     import Vue from 'vue';
     import {Divider, Table, Button, Select} from "ant-design-vue";
-    import ClientService from "@/services/restful-api/api.service";
-    import appsApi from "@/constants/api/apps.api";
-    import AuthService from "@/services/auth.service";
+    import ClientService from "@/services/restful-api/client.service";
     import {RestfulResponse} from "@/entity/model/RestfulResponse";
+    import {ResponseCodeEnum} from "@/constants/enums/response-code.enum";
+    import {serviceApi} from "@/constants/api/service.api";
     Vue.use(Divider).use(Table).use(Button).use(Select);
 
     export default Vue.extend({
@@ -102,8 +102,8 @@
         },
         methods: {
             initAppList(){
-                ApiService.general(appsApi.selectAppList, {}, null).then((res: RestfulResponse) => {
-                    if(res.code === EnableTypeEnum.YES.code) {
+                ClientService.general(serviceApi.systemApi.sysAppInfo.selectAppList, {}, null).then((res: RestfulResponse) => {
+                    if(res.code === ResponseCodeEnum.SUCCESS.code) {
                         this.data = res.data;
                     } else {
                         this.$message.error(res.msg);

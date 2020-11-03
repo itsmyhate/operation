@@ -5,7 +5,6 @@ import store, {destoryStore} from './store';
 import router, {destoryRouter} from './router';
 import 'popper.js';
 import './public-path';
-import {GlobalState} from "@/entity/model/GlobalState";
 import {COMMON} from 'app-constants-js';
 import {SET_ALIVE_ROUTE} from "@/store/route-keep-alive.module";
 import RouteTopologyService from "@/services/route-topology.service";
@@ -53,7 +52,7 @@ export async function mount(props: any) {
   const actionsKeyEnum = vue.$COMMON.ActionsKeyEnum;
   const globalStateService = vue.$COMMON.globalStateService;
   globalStateService.setAction(props);
-  globalStateService.on(vue.$COMMON.AppNameEnum.test, (state: GlobalState, preState: GlobalState) => {
+  globalStateService.on(vue.$COMMON.AppNameEnum.test, (state: any, preState: any) => {
     console.log('test观察者：', state);
     /*
     * 快照时，添加监听
@@ -72,14 +71,14 @@ export async function mount(props: any) {
   /*
   * 非快照时，需要触发获取上次路由
   * */
-  globalStateService.dispatch(vue.$COMMON.AppNameEnum.root, new GlobalState({
+  globalStateService.dispatch(vue.$COMMON.AppNameEnum.root, {
     action: actionsKeyEnum.getHisRoute,
     payload: vue.$COMMON.AppNameEnum.test,
-    callBack: (url) => {
+    callBack: (url: any) => {
       url = !!url ? url : '/main/button';
       vue.$router.push({path: url});
     }
-  }));
+  });
 }
 
 export async function unmount(props: any) {

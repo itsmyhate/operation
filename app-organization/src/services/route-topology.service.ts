@@ -3,7 +3,10 @@ import router from "@/router/index";
 import { HORIZONTAL_ROUTES, INITED, ROUTE_TOPOLOGY, SET_HORIZONTAL_ROUTES, SET_INITED, SET_TREE_ROUTES } from "@/store/route-topology.module";
 import {SysMenuInfo} from "@/entity/domain/SysMenuInfo";
 
-const RouteTopologyService = {
+class RouteTopologyService {
+  constructor() {
+    this.checkAndInit();
+  }
   init(): any {
     const routes: any[] = (router as any).options.routes;
     const treeRoutes: any[] = this.treeRecursion(routes); // 树形结构
@@ -11,15 +14,15 @@ const RouteTopologyService = {
     store.commit(ROUTE_TOPOLOGY + "/" + SET_TREE_ROUTES, treeRoutes);
     store.commit(ROUTE_TOPOLOGY + "/" + SET_HORIZONTAL_ROUTES, horizontalRoutes);
     store.commit(ROUTE_TOPOLOGY + "/" + SET_INITED, true);
-  },
+  }
   isInit(): boolean {
     return store.getters[ROUTE_TOPOLOGY + "/" + INITED];
-  },
+  }
   checkAndInit(): void {
     if (!this.isInit()) {
       this.init();
     }
-  },
+  }
   treeRecursion(routes: any[], parentPath = "", treeRoutes: any[] = []): any[] {
     parentPath = parentPath + (parentPath === "" ? "" : "/");
     routes.forEach((item) => {
@@ -43,7 +46,7 @@ const RouteTopologyService = {
       treeRoutes.push(it);
     });
     return treeRoutes;
-  },
+  }
   horizontalRecursion(treeRoutes: any[], horizontalRoutes: any[] = []): any {
     treeRoutes.forEach((item) => {
       horizontalRoutes.push({
@@ -56,7 +59,7 @@ const RouteTopologyService = {
       }
     });
     return horizontalRoutes;
-  },
+  }
   fetchNodes(path: any, nodes: any[] = []) {
     const horizontalRoutes: any[] = store.getters[ROUTE_TOPOLOGY + "/" + HORIZONTAL_ROUTES];
     const node = horizontalRoutes.find((it) => it.path === path);
@@ -67,7 +70,7 @@ const RouteTopologyService = {
       }
     }
     return nodes;
-  },
+  }
   recursionSerarchMenuByPath(menus: SysMenuInfo[], path: string): SysMenuInfo | undefined {
     for (const i in menus) {
       if (menus[i].menuUrl === path) {
@@ -79,7 +82,7 @@ const RouteTopologyService = {
         }
       }
     }
-  },
+  }
   recursionSerarchCurrentMenuTreeByPath(menus: SysMenuInfo[], path: string): SysMenuInfo[] | null {
     for (const i in menus) {
       if (menus[i].menuUrl === path) {
@@ -93,6 +96,6 @@ const RouteTopologyService = {
       }
     }
     return null;
-  },
+  }
 };
-export default RouteTopologyService;
+export default new RouteTopologyService();

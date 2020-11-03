@@ -11,10 +11,7 @@ import '@/assets/css/bootstrap.min.css';
 import 'ant-design-vue/dist/antd.css';
 import '@/assets/css/common.scss';
 
-import {GlobalState} from "@/entity/model/GlobalState";
-import RouteTopologyService from "@/services/route-topology.service";
 import {SET_ALIVE_ROUTE} from "@/store/route-keep-alive.module";
-import ApiService from "@/services/restful-api/api.service";
 import MockService from "@/mock/mock.service";
 
 Vue.prototype.$COMMON = COMMON;
@@ -33,9 +30,7 @@ async function initApp(props?: any) {
   }
 }
 function render() {
-  ApiService.init();
   MockService.init();
-  RouteTopologyService.checkAndInit();
   /*
   * 设置路由
   * */
@@ -61,7 +56,7 @@ export async function mount(props: any) {
   const globalStateService = vue.$COMMON.globalStateService;
   globalStateService.setAction(props);
 
-  globalStateService.on(vue.$COMMON.AppNameEnum.organization, (state: GlobalState, preState: GlobalState) => {
+  globalStateService.on(vue.$COMMON.AppNameEnum.organization, (state: any, preState: any) => {
     console.log('organization观察者：', state.action, state.payload);
     /*
     * 快照时，添加监听
@@ -80,14 +75,14 @@ export async function mount(props: any) {
   /*
   * 非快照时，需要触发获取上次路由
   * */
-  /*globalStateService.dispatch(vue.$COMMON.AppNameEnum.root, new GlobalState({
+  /*globalStateService.dispatch(vue.$COMMON.AppNameEnum.root, {
     action: actionsKeyEnum.getHisRoute,
     payload: vue.$COMMON.AppNameEnum.organization,
     callBack: (url) => {
       url = !!url ? url : '/main/members';
       vue.$router.push({path: url});
     }
-  }));*/
+  });*/
 }
 export async function unmount(props: any) {
   destoryRouter();

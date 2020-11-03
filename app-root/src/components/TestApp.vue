@@ -6,7 +6,6 @@
 <script lang="ts">
 import {SysAppInfo} from '@/entity/domain/SysAppInfo';
 import {SysMenuInfo} from '@/entity/domain/SysMenuInfo';
-import {GlobalState} from '@/entity/model/GlobalState';
 import {getMenusInfo} from '@/services/menus.service';
 import {GET_APP_HISROUTE, GET_APP_INFO} from '@/store/app-his-route.module';
 import {initGlobalState, loadMicroApp, start} from 'qiankun';
@@ -61,11 +60,11 @@ export default Vue.extend({
             console.log(`触发${this.appInfo.name}App setHisRoute start.......`, hisRoute);
             this.$COMMON.globalStateService.dispatch(
                 this.appInfo.name,
-                new GlobalState({
+                {
                     action: this.$COMMON.ActionsKeyEnum.setHisRoute, payload: hisRoute, callBack: () => {
                         console.log('触发testApp setHisRoute callback.......');
                     }
-                })
+                }
             );
         }
     },
@@ -79,11 +78,11 @@ export default Vue.extend({
             console.log('触发testApp setHisRoute start.......', hisRoute);
             this.$COMMON.globalStateService.dispatch(
                 this.appInfo.name,
-                new GlobalState({
+                {
                     action: this.$COMMON.ActionsKeyEnum.setHisRoute, payload: hisRoute, callBack: () => {
                         console.log('触发testApp setHisRoute callback.......');
                     }
-                })
+                }
             );
         }
     },

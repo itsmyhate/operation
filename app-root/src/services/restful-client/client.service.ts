@@ -1,32 +1,33 @@
-import {EnableTypeEnum} from '@/constants/enums/enable-type.enum';
 import {HeaderTypeEnum} from '@/constants/enums/header-type.enum';
 import {MethodTypeEnum} from '@/constants/enums/method-type.enum';
 import {RestfulResponse} from '@/entity/model/RestfulResponse';
 import axios, {AxiosRequestConfig} from 'axios';
 import Vue from 'vue';
 import VueAxios from 'vue-axios';
-import AuthService from './auth.service';
+import {AuthService} from "@/services/restful-client/auth.service";
 
 interface Query {
     [key: string]: any;
 }
-const ClientService = {
+class ClientService extends AuthService {
+    constructor() {
+        super();
+        this.init();
+    }
     init() {
         const auth = Vue.prototype.$COMMON.AuthService;
         Vue.use(VueAxios, axios);
-        if (process.env.VUE_APP_ENABLE_MOCK !== EnableTypeEnum.YES.code) {
-            Vue.axios.defaults.baseURL = process.env.VUE_APP_BASE_URL;
-        }
-        const headers = AuthService.createBasicHeaders();
+
+        const headers = this.createBasicHeaders();
         Object.keys(headers).forEach( function(key) {
             Vue.axios.defaults.headers.common[key] = headers[key];
         });
 
-        Vue.axios.interceptors.request.use( function(config) {
-                if (AuthService.verificationToken(config)) {
+        Vue.axios.interceptors.request.use( (config) => {
+                if (this.verificationToken(config)) {
                     return Promise.resolve(config);
                 } else {
-                    return AuthService.refreshToken().then((response) => {
+                    return this.refreshToken().then((response) => {
                         if (response) {
                             config.headers.Authorization = 'bearer' + auth.getToken().accessToken;
                             return config;
@@ -42,44 +43,44 @@ const ClientService = {
                 return Promise.reject(error);
             }
         );
-    },
+    }
     get(path: string, query: Query, requestConfig: AxiosRequestConfig): Promise<RestfulResponse> {
         path = query != null ? this.urlQueryConvert(path, query) : path;
         return Vue.axios
             .get(`${path}`, requestConfig)
             .then(this.createBusCodeHander())
             .catch(this.createErrorHander());
-    },
+    }
     post(path: string, params: any, query: Query, requestConfig: AxiosRequestConfig): Promise<RestfulResponse>  {
         path = query != null ? this.urlQueryConvert(path, query) : path;
         return Vue.axios
             .post(`${path}`, params, requestConfig)
             .then(this.createBusCodeHander())
             .catch(this.createErrorHander());
-    },
+    }
     put(path: string, params: any, query: Query, requestConfig: AxiosRequestConfig): Promise<RestfulResponse>  {
         path = query != null ? this.urlQueryConvert(path, query) : path;
         return Vue.axios
             .put(`${path}`, params, requestConfig)
             .then(this.createBusCodeHander())
             .catch(this.createErrorHander());
-    },
+    }
     delete(path: string, query: Query, requestConfig: AxiosRequestConfig): Promise<RestfulResponse>  {
         path = query != null ? this.urlQueryConvert(path, query) : path;
         return Vue.axios
             .delete(path, requestConfig)
             .then(this.createBusCodeHander())
             .catch(this.createErrorHander());
-    },
+    }
     general(api: any, query: Query = {}, params: any = null, requestConfig?: AxiosRequestConfig): Promise<RestfulResponse> {
         if (!!api.url && !!api.method) {
             if (!requestConfig) {
                 switch (api.header) {
                     case HeaderTypeEnum.BASE.code:
-                        requestConfig = AuthService.createBasicHeaders();
+                        requestConfig = this.createBasicHeaders();
                         break;
                     case HeaderTypeEnum.AUTH.code:
-                        requestConfig = AuthService.createAuthHeaders();
+                        requestConfig = this.createAuthHeaders();
                         break;
                 }
             }
@@ -106,7 +107,7 @@ const ClientService = {
         return new Promise<RestfulResponse>((resolve, reject) => {
             resolve(),  reject();
         });
-    },
+    }
     createBusCodeHander() {
         return function(response: any) {
             if (response.status === 200) {
@@ -114,7 +115,7 @@ const ClientService = {
             }
             return response;
         };
-    },
+    }
     createErrorHander() {
         return function(error: any) {
             if (error.response) {
@@ -143,7 +144,7 @@ const ClientService = {
             }
             console.log(error.config);
         };
-    },
+    }
     urlQueryConvert(url: string, query: Query) {
         let connectiveSymbol = '';
         if (url.indexOf('?') !== -1) {
@@ -173,4 +174,4 @@ const ClientService = {
     }
 };
 
-export default ClientService;
+export default new ClientService();

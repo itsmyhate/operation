@@ -1,11 +1,10 @@
 import Vue from 'vue';
-import VueRouter, { RouteConfig } from 'vue-router';
+import VueRouter, {Route, RouteConfig} from 'vue-router';
 import {configRouting} from "@/router/config.routing";
 import {membersRouting} from "@/router/members.routing";
 import {appRouting} from "@/router/app.routing";
-import {RawLocation} from "vue-router/types/router";
+import {NavigationGuardNext, RawLocation} from "vue-router/types/router";
 import {baseRouting} from "@/router/base.routing";
-import {GlobalState} from "@/entity/model/GlobalState";
 
 Vue.use(VueRouter);
 
@@ -26,13 +25,13 @@ export const routes: RouteConfig[] = [
   },
 ];
 
-let router: VueRouter = new VueRouter({
+let router: any = new VueRouter({
   mode: 'history',
   // @ts-ignore
   base: window.__POWERED_BY_QIANKUN__ ? '/organization' : '/',
   routes,
 });
-router.beforeEach((to, from, next) => {
+router.beforeEach((to: Route, from: Route, next: NavigationGuardNext) => {
   /*
   * 会监听到主应用及其它应用路由 需要判断；
   * */
@@ -40,10 +39,10 @@ router.beforeEach((to, from, next) => {
     console.log('organization 触发 root setHisRoute', to.path);
     Vue.prototype.$COMMON.globalStateService.dispatch(
         Vue.prototype.$COMMON.AppNameEnum.root,
-        new GlobalState({
+        {
           action: Vue.prototype.$COMMON.ActionsKeyEnum.setHisRoute,
           payload: {organization: to.path}, callBack: () => {}
-        })
+        }
     );
   }
   next();

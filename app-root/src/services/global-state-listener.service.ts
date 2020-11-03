@@ -1,5 +1,4 @@
 import {SysAppInfo} from '@/entity/domain/SysAppInfo';
-import {GlobalState} from '@/entity/model/GlobalState';
 import {getMenusInfo} from '@/services/menus.service';
 import {store} from '@/store';
 import {GET_APP_HISROUTE, SET_APP_HISROUTE_ACTION} from '@/store/app-his-route.module';
@@ -12,7 +11,7 @@ export const globalStateListenerService = {
         * */
         const actions = initGlobalState(COMMON.globalStateService.initData(apps));
         COMMON.globalStateService.setAction(actions);
-        COMMON.globalStateService.on( COMMON.AppNameEnum.root, (state: GlobalState, prevState: GlobalState) => {
+        COMMON.globalStateService.on( COMMON.AppNameEnum.root, (state: any, prevState: any) => {
             const action = state.action;
             if (action === COMMON.ActionsKeyEnum.setHisRoute) {
                 /*payload={[微应用name: 'url']}

@@ -4,8 +4,6 @@ import MockService from '@/mock/mock.service';
 import {startQiankun} from '@/qiankun.start';
 import {globalStateListenerService} from '@/services/global-state-listener.service';
 import {getMenusInfo} from '@/services/menus.service';
-import ClientService from '@/services/restful-client/client.service';
-import RouteTopologyService from '@/services/route-topology.service';
 import {COMMON} from 'app-constants-js';
 import Vue from 'vue';
 import VueRouter from 'vue-router';
@@ -36,9 +34,7 @@ if (process.env.NODE_ENV === 'development') {
 * */
 function initRoot() {
 
-  ClientService.init();
   MockService.init();
-  RouteTopologyService.checkAndInit();
   /*
   * 设置路由快照
   * */

@@ -26,7 +26,6 @@
     import RouteTopologyService from "@/services/route-topology.service";
     import LeftMenu from "@/components/LeftMenu.vue";
     import {SysMenuInfo} from "@/entity/domain/SysMenuInfo";
-    import { GlobalState } from '@/entity/model/GlobalState';
 
     export default Vue.extend({
         name: "Main",
@@ -47,14 +46,14 @@
         created() {
             this.aliveRoutes = this.$store.getters[GET_ALIVE_ROUTE]();
             this.$COMMON.globalStateService.dispatch(this.$COMMON.AppNameEnum.root,
-                new GlobalState({
+                {
                     action: this.$COMMON.ActionsKeyEnum.getMenuInfo,
                     payload: this.$COMMON.AppNameEnum.test,
                     callBack: (menus: SysMenuInfo[]) => {
                         this.menus = menus;
                         this.navPosition();
                     }
-                })
+                }
             )
         },
         methods: {
