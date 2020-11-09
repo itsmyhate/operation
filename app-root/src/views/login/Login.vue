@@ -51,29 +51,8 @@ export default Vue.extend({
                     this.login(values);
                 }
             });
-
         },
         login(values: any) {
-            /*const data = {
-                user: {
-                    username: 'username',
-                    deptId: 'XXX部门',
-                },
-                token: {
-                    refreshToken: 'refreshToken',
-                    accessToken: 'token',
-                    expiresIn: 100000,
-                    time: new Date().getTime(),
-                },
-                rootMenus: [
-                    new SysMenuInfo({menuId: 'workbench', menuName: '工作台', menuIcon: '', menuUrl: '/root/workbench'}),
-                    new SysMenuInfo({menuId: 'app-collect', menuName: '应用管理', menuIcon: '', menuUrl: '/root/app-collect', }),
-                ],
-            };
-            this.$COMMON.AuthService.login(data.user, data.token);
-            setMenusInfo([], data.rootMenus);
-            IsLoginService.update(true);
-            this.$router.push({path: '/root/app-collect'});*/
             values.password = Md5.hashStr(values.password);
             ClientService.general(serviceApi.systemApi.sysUserInfo.login ,{}, {
                 code: values.username,

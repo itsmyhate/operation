@@ -13,12 +13,13 @@ export class AuthService {
         };
     };
     protected createAuthHeaders(): any {
-        const token = Vue.prototype.$COMMON.AuthService.getToken().accessToken;
+        const token = Vue.prototype.$COMMON.AuthService.getToken();
         return {
             headers: {
-                Authorization: 'bearer ' + token,
+                Authorization: 'bearer ' + token.accessToken,
                 'Content-Type': 'application/json',
-                Accept: 'application/json'
+                Accept: 'application/json',
+                'user_identity': token.jti
             }
         };
     };

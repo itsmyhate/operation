@@ -46,10 +46,8 @@ export default Vue.extend({
         },
         initAppList() {
             ClientService.general(serviceApi.systemApi.sysAppInfo.selectAppAndMenuList, {}, null).then((res: RestfulResponse) => {
-                if (true) {
-                // if (res.code === ResponseCodeEnum.SUCCESS.code) {
-                //     this.data = res.data;
-                    this.data = apps;
+                if (res.code === ResponseCodeEnum.SUCCESS.code) {
+                    this.data = res.data;
                     setMenusInfo(this.data);
 
                     /*

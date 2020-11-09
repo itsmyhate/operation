@@ -24,11 +24,11 @@
         },
         created() {
             /*const data = this.$store.getters[GET_APP_INFO];
-        this.appInfo = {
-            name: data.appId,
-            entry: data.appUrl,
-            container: `#${data.appId}App`,
-        };*/
+            this.appInfo = {
+                name: data.appId,
+                entry: data.appUrl,
+                container: `#${data.appId}App`,
+            };*/
             const apps: any[] = getMenusInfo() || [];
             const data: SysAppInfo = apps.find((ap: any) => ap.appId === this.$COMMON.AppNameEnum.finAcc);
             if(!data) {

@@ -5,7 +5,7 @@ import {SysMenuInfo} from '../entity/domain/SysMenuInfo';
 export const apps: SysAppInfo[] = [
     new SysAppInfo({appId: 'test', appName: '测试', appIcon: '', appUrl: '//localhost:4201/index.html', appActiveRule: '/test',
         appType: '', appState: '', appDesc: '测试使用。。。。。。',
-        menuList: [
+        sysMenuInfoList: [
             new SysMenuInfo({menuId: 'render', menuName: 'render', menuIcon: '', menuUrl: '/main/render',}),
             new SysMenuInfo({menuId: 'modal', menuName: 'modal模态框', menuIcon: '', menuUrl: '/main/modal',}),
             new SysMenuInfo({menuId: 'button', menuName: 'button按钮', menuIcon: '', menuUrl: '/main/button',}),
@@ -20,7 +20,7 @@ export const apps: SysAppInfo[] = [
         ]}),
     new SysAppInfo({appId: 'organization', appName: '系统管理', appIcon: '',appUrl: '//localhost:4202/index.html', appActiveRule: '/organization',
         appType: '', appState: '', appDesc: '系统管理微应用，包含组织结构管理、角色权限管理、菜单交易管理等',
-        menuList: [
+        sysMenuInfoList: [
             new SysMenuInfo({menuId: 'orgs', menuName: '系统管理', menuIcon: '', menuUrl: '/main',
                 children: [
                     /*
@@ -61,10 +61,10 @@ export const apps: SysAppInfo[] = [
         ]}),
 ];
 const userList = {
-    code: '1',
+    code: 200,
     msg: '操作成功',
     data: apps,
 };
 export default {
-    'get|/selectAppList': userList
+    'get|/selectAppAndMenuList': userList
 };

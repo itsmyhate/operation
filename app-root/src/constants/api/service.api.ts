@@ -31,7 +31,7 @@ class ServiceApi extends BaseApi {
       sysAppInfo: {
         selectAppAndMenuList: {
           url: this.systemUrl + this.prefix + '/sysAppInfo' + '/selectAppAndMenuList',
-          method: MethodTypeEnum.POST.code,
+          method: MethodTypeEnum.GET.code,
           header: HeaderTypeEnum.AUTH.code
         }
       }

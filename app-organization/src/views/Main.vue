@@ -1,6 +1,6 @@
 <template>
     <a-layout class="h-100">
-        <a-layout-sider class="root-left-menu scroll-content-dhcc">
+        <a-layout-sider class="root-left-menu root-scroll-content">
             <LeftMenu :menus="menus"></LeftMenu>
         </a-layout-sider>
         <a-layout-content class="root-content">

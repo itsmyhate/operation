@@ -12,6 +12,6 @@ export class BaseApi {
     this.initUrl();
   }
   initUrl() {
-    this.systemUrl = (this.enableGateWay ? this.gatewayUrl + '/pf-system' : this.systemUrl) + '/pf-system';
+    this.systemUrl = (this.enableGateWay ? this.gatewayUrl : this.systemUrl) + '/pf-system';
   }
 };

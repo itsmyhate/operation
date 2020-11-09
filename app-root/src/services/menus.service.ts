@@ -19,17 +19,16 @@ function getMenusInfo(appName?: string): SysMenuInfo[] | SysAppInfo[] {
     const appStr = localStorage.getItem(cacheKeyEnum.apps);
     if (!!appStr) {
         const apps: SysAppInfo[] = JSON.parse(appStr);
-        console.log(appName, apps);
         if (!appName) {
             return apps;
         } else {
-            const app: any = apps.find((val) => {
+            const app: SysAppInfo | undefined = apps.find((val) => {
                 if (val.appId === appName) {
                     return val;
                 }
             });
             if ( app ) {
-                return app.menuList || [];
+                return app.sysMenuInfoList || [];
             }
         }
     }

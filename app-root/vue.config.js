@@ -37,12 +37,15 @@ const cdn = {
 module.exports = {
     devServer: {
         port: port,
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+        },
     },
     productionSourceMap: process.env.NODE_ENV !== 'production',
     /*chainWebpack: config => {
         config.set('externals', externals)
         config.plugin('html').tap(args => {
-            args[0].cdn = cdn
+            // args[0].cdn = cdn
             return args;
         })
     },*/
